@@ -8,7 +8,7 @@ make
 
 ## Execução
 
-plsh <string> k semente
+plsh string k semente
 
 ## Uso
 
