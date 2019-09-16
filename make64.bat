@@ -1,0 +1,9 @@
+SETLOCAL
+
+SET "TOOLCHAINDIR=C:\mingw64\bin"
+SET "MAKEEXE=mingw32-make.exe"
+SET PATH=%TOOLCHAINDIR%
+
+%MAKEEXE% CC=x86_64-w64-mingw32-gcc -Iinclude/" PROJECTNAME=pplsh
+
+ENDLOCAL
