@@ -1,54 +1,45 @@
-# Makefile
+# Makefile do Projeto Algo. Paralelos
+# Algoritmo LSH para plataforma CUDA
 
 #### Secao dos cabecalhos ####
 PROJECTNAME=plsh
-CC=gcc
+HOST_COMPILER=g++
+CUDA_PATH =/usr/local/cuda
+NVCC=$(CUDA_PATH)/bin/nvcc -ccbin $(HOST_COMPILER)
 DEFS=
-
-CFLAGS=-c -Wall -Wextra -Wpedantic $(DEFS) -Iinclude/
-DBGFLAGS=-ggdb -fno-inline -fno-omit-frame-pointer 
-
-LIBS=
+NVCCFLAGS=-m64 -g -G -c
+BUILD_TYPE=debug
 LDFLAGS=
+INCLUDES=-I../../Common
+LIBS=
+
 BINDIR=bin
 OBJDIR=obj
-OBJFILES=xxhash.o main.o
+OBJFILES=main.o
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
 SOURCEDIR=src
 TESTDIR=test
 
 #### Secao das regras ####
-$(OBJDIR)/%.o: $(SOURCEDIR)/%.c
+$(OBJDIR)/%.o: $(SOURCEDIR)/%.cu
 	@(echo. && echo Compilando $<...)
-	$(CC) $(DBGFLAGS) $(CFLAGS) $< -o $@
+	$(NVCC) $(INCLUDES) $(NVCCFLAGS) $< -o $@
 
 # Impede do comando nao ser executado caso exista um arquivo de mesmo nome ja atualizado.
-.PHONY: all clean run nfo debug
+.PHONY: all clean run
 
-all: clean $(PROJECTNAME).exe
+all: clean $(PROJECTNAME)
 	
-$(PROJECTNAME).exe: $(OBJECTS)
+$(PROJECTNAME): $(OBJECTS)
 	@(echo. && echo Gerando executavel...)
-	$(CC) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LIBS)
+	$(NVCC) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LIBS)
 
 clean:
-	@echo Executando limpeza...
-	del /q $(addprefix $(OBJDIR)\, $(OBJFILES))
-	del /q $(BINDIR)\$(PROJECTNAME).exe
-	
-debug:
-	gdb -q -ex 'cd bin' --args $(BINDIR)\$(PROJECTNAME).exe
-	
-run:
-	cd bin && $(PROJECTNAME).exe	
-	
-info:
-	@(echo Informacoes do sistema: && echo.)
-	@(ver | find "Microsoft")
-	@(echo Arquitetura: ^< %PROCESSOR_ARCHITECTURE%)
-	@(gcc -v 2>&1 | find "gcc version")
-	@(gcc -v 2>&1 | find "Target")	
-	@(gdb -v | find "GNU gdb")
-	@(ld -v | find "GNU ld")
-	@(dlltool --version | find "GNU dlltool")
-	@(make -v | find "GNU Make")
+	@echo 
+	@echo Excluindo executavel...
+	rm -f $(BINDIR)/$(PROJECTNAME)
+	@echo Excluindo objetos...
+	rm -f $(OBJECTS)
+
+run: $(PROJECTNAME)
+	./$(BINDIR)/$(PROJECTNAME)
