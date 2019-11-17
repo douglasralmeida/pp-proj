@@ -22,20 +22,22 @@ TESTDIR=test
 
 #### Secao das regras ####
 $(OBJDIR)/%.o: $(SOURCEDIR)/%.cu
-	@(echo. && echo Compilando $<...)
+	@echo
+	@echo Compilando $<...
 	$(NVCC) $(INCLUDES) $(NVCCFLAGS) $< -o $@
 
 # Impede do comando nao ser executado caso exista um arquivo de mesmo nome ja atualizado.
 .PHONY: all clean run
 
 all: clean $(PROJECTNAME)
-	
+
 $(PROJECTNAME): $(OBJECTS)
-	@(echo. && echo Gerando executavel...)
+	@echo
+	@echo Gerando executavel...
 	$(NVCC) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LIBS)
 
 clean:
-	@echo 
+	@echo
 	@echo Excluindo executavel...
 	rm -f $(BINDIR)/$(PROJECTNAME)
 	@echo Excluindo objetos...
