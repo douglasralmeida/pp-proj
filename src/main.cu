@@ -17,20 +17,21 @@ int main(int argc, const char * argv[]){
     cudaError_t erro;
     cudaDeviceProp deviceProp; 
     
-    cuda_olamundo<<<1,1>>>();
-    
     cudaProfilerStart();
     erro = cudaGetDeviceCount(&count);
     if (erro != cudaSuccess) {
-        printf("Error: %s\n", cudaGetErrorString(erro));
+        printf("Erro: %s\n", cudaGetErrorString(erro));
         exit(-1);
     }
-    printf("Number of devices: %d\n", count);
+    printf("Numero de dispositivos: %d\n", count);
     erro = cudaGetDeviceProperties(&deviceProp, 0);
     if (erro != cudaSuccess) {
-        printf("Error: %s\n", cudaGetErrorString(erro));
+        printf("Erro: %s\n", cudaGetErrorString(erro));
         exit(-1);
     }
-    printf("\nDevice %d has compute capability %d.%d.\n", 0, deviceProp.major, deviceProp.minor);
+    printf("Dispositivo %d tem a capacidade computacional %d.%d.\n\n", 0, deviceProp.major, deviceProp.minor);
+    
+    cuda_olamundo<<<1,1>>>();
+    cudaDeviceReset();
     exit(EXIT_SUCCESS);
 }
