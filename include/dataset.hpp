@@ -9,9 +9,13 @@
 
 class Dataset {
     private:
+        int capacity;
+        Datatype* items;
         int size;
     public:
         Dataset();
+
+        int getCapacity();
         
         int getSize();
 
