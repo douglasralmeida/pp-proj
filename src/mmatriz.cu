@@ -143,7 +143,7 @@ void matriz_preencher(float* A, int tam) {
 void matriz_exibir(float* A, int tam) {
     for (int i = 0; i < tam; i++) {
         for (int j = 0; j < tam; j++) {
-            printf("%f ", A[tam*i+j]);
+            printf("%0.2f ", A[tam*i+j]);
         }
         printf("\n");
     }
