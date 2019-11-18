@@ -106,7 +106,7 @@ void multiplicar(const float* M, const float* N, float* R, int aM, int lM, int l
     dim3 dimGrid(lN / dimBlock.x, aM / dimBlock.y); 
  
     // Processa a computação na GPU
-    cuda_multiplicarmatriz<<<dimGrid, dimBlock>>>(Md, Nd, lM, lN, Rd);
+    cuda_multiplicarmatriz<<<dimGrid, dimBlock>>>(Md, Nd, Rd, lM, lN);
  
     // Carrega R da GPU
     cudaMemcpy(R, Rd, tam, cudaMemcpyDeviceToHost);  
@@ -167,7 +167,7 @@ int main(int argc, const char * argv[]){
     matriz_exibir(A, aA);
     printf("Matriz B\n");
     matriz_exibir(B, aA);
-    multiplicar(A, B, aA, lA, lB, C);
+    multiplicar(A, B, C, aA, lA, lB);
     printf("RESULTADO\n");
     matriz_exibir(C, aA);
 
