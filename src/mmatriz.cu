@@ -137,13 +137,13 @@ int checkGpu() {
 
 void matriz_preencher(float* A, int tam) {
     for (int i = 0; i < tam*tam; i++)
-        A[i] = rand() % 100;
+        A[i] = (float)(rand() % 100);
 }
 
 void matriz_exibir(float* A, int tam) {
     for (int i = 0; i < tam; i++) {
         for (int j = 0; j < tam; j++) {
-            printf("%d ", A[tam*i+j]);
+            printf("%f ", A[tam*i+j]);
         }
         printf("\n");
     }
