@@ -29,13 +29,13 @@ __global__ void cuda_multiplicarmatriz(float* M, float* N, float* R, int tamM, i
     int mFim   = mComeco + tamM - 1;
  
     // Tamanho do passo utilizado para interar através das submatrizes de M
-    int mPasso  = BLOCK_SIZE; 
+    int mPasso  = TAM_BLOCO; 
  
     // Índice da primeira submatriz de N processada pelo bloco
-    int nComeco = BLOCK_SIZE * bx; 
+    int nComeco = TAM_BLOCO * bx; 
  
     // Tamanho do passo utilizado para interar através das submatrizes de N
-    int nPasso  = BLOCK_SIZE * wB;
+    int nPasso  = TAM_BLOCO * tamN;
  
     // O elemento computado pela thread
     float rRes = 0; 
@@ -45,16 +45,16 @@ __global__ void cuda_multiplicarmatriz(float* M, float* N, float* R, int tamM, i
     for (int m = mComeco, n = nComeco; m <= mFim; m += mPasso, n += nPasso) { 
  
         // Memoria compartilhada para a submatriz de M
-        __shared__ float Msub[BLOCK_SIZE][BLOCK_SIZE]; 
+        __shared__ float Msub[TAM_BLOCO][TAM_BLOCO]; 
  
         // Memoria compartilhada para a submatriz de N
-        __shared__ float Nsub[BLOCK_SIZE][BLOCK_SIZE]; 
+        __shared__ float Nsub[TAM_BLOCO][TAM_BLOCO]; 
  
         // Carrega as matrizes da memória global para a memória
         // compartilhada. Cada thread carreg um elemento de cada
         // matriz
-        Msub[ty][tx] = M[a + tamM * ty + tx];
-        Nsub[ty][tx] = N[b + tamB * ty + tx];
+        Msub[ty][tx] = M[m + tamM * ty + tx];
+        Nsub[ty][tx] = N[n + tamN * ty + tx];
  
         // Sincroniza para garantir que todas as matrizes foram
         // carregadas
@@ -63,8 +63,8 @@ __global__ void cuda_multiplicarmatriz(float* M, float* N, float* R, int tamM, i
         // Multiplica as duas matrizes.
         // Cada thread computa um elemento
         // do bloco da submatriz
-        for (int i = 0; i < BLOCK_SIZE; ++i)
-            rRes += Msub[ty][i] * NSub[i][tx];
+        for (int i = 0; i < TAM_BLOCO; ++i)
+            rRes += Msub[ty][i] * Nsub[i][tx];
         
         // Sincroniza para grantir que a computação de multiplicação
         // está feita antes de carregar duas novas submatrizes de 
@@ -73,7 +73,7 @@ __global__ void cuda_multiplicarmatriz(float* M, float* N, float* R, int tamM, i
     }
      // Esscre o bloco da sumatriz na memória global
      // Cada thread escreve  um único elemento
-     int r = tamN * BLOCK_SIZE * by + BLOCK_SIZE * bx;
+     int r = tamN * TAM_BLOCO * by + TAM_BLOCO * bx;
      R[r + tamN * ty + tx] = rRes;
 }
 
@@ -101,12 +101,12 @@ void multiplicar(const float* M, const float* N, int aM, int lM, int lN, float* 
     cudaMalloc((void**)&Rd, tam); 
  
     // Computa a configuração da execução assumindo que
-    // as dimensões das matrizes são múltiplos de BLOCK_SIZE
-    dim3 dimBlock(BLOCK_SIZE, BLOCK_SIZE);
+    // as dimensões das matrizes são múltiplos de TAM_BLOCO
+    dim3 dimBlock(TAM_BLOCO, TAM_BLOCO);
     dim3 dimGrid(lN / dimBlock.x, aM / dimBlock.y); 
  
     // Processa a computação na GPU
-    Muld<<<dimGrid, dimBlock>>>(Md, Nd, lM, lN, Rd); 
+    cuda_multiplicarmatriz<<<dimGrid, dimBlock>>>(Md, Nd, lM, lN, Rd); 
  
     // Carrega R da GPU
     cudaMemcpy(R, Rd, tam, cudaMemcpyDeviceToHost);  
@@ -131,6 +131,8 @@ int checkGpu() {
         printf("Erro: %s\n", "Este computador não possui um dispositivo com GPU compatível com CUDA disponível.");
         return 0;
     }
+
+    return 1;
 }
 
 void matriz_preencher(float* A, int tam) {
@@ -151,9 +153,9 @@ int main(int argc, const char * argv[]){
     float A[TAM_BLOCO*TAM_BLOCO];
     float B[TAM_BLOCO*TAM_BLOCO];
     float C[TAM_BLOCO*TAM_BLOCO];
-    aA = TAM_BLOCO;
-    lA = TAM_BLOCO;
-    lB = TAM_BLOCO;
+    int aA = TAM_BLOCO;
+    int lA = TAM_BLOCO;
+    int lB = TAM_BLOCO;
 
     if (!checkGpu())
         exit(EXIT_FAILURE);
