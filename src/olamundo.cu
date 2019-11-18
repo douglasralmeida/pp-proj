@@ -1,5 +1,6 @@
 /*
-Projeto de Algoritmos Paralelos
+** Projeto de Algoritmos Paralelos
+** Ola Mundo
 */
 
 #include <limits.h>
@@ -9,7 +10,7 @@ Projeto de Algoritmos Paralelos
 #include <cuda_profiler_api.h>
 
 __global__ void cuda_olamundo(){
-  printf("Ola Mundo direto da GPU!\n");
+    printf("Ola Mundo direto da GPU!\n");
 }
 
 int main(int argc, const char * argv[]){

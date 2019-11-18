@@ -15,7 +15,7 @@ LIBS=
 
 BINDIR=bin
 OBJDIR=obj
-OBJFILES=main.o
+OBJFILES=mmatriz.o
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
 SOURCEDIR=src
 TESTDIR=test
