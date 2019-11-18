@@ -82,7 +82,7 @@ __global__ void cuda_multiplicarmatriz(float* M, float* N, float* R, int tamM, i
 //   aM é a altura de M
 //   lM é a largura de M
 //   lN é a largura de N
-void multiplicar(const float* M, const float* N, int aM, int lM, int lN, float* R) {
+void multiplicar(const float* M, const float* N, float* R, int aM, int lM, int lN) {
     int tam;
  
     // Carrega M e N para a GPU
@@ -106,7 +106,7 @@ void multiplicar(const float* M, const float* N, int aM, int lM, int lN, float* 
     dim3 dimGrid(lN / dimBlock.x, aM / dimBlock.y); 
  
     // Processa a computação na GPU
-    cuda_multiplicarmatriz<<<dimGrid, dimBlock>>>(Md, Nd, lM, lN, Rd); 
+    cuda_multiplicarmatriz<<<dimGrid, dimBlock>>>(Md, Nd, lM, lN, Rd);
  
     // Carrega R da GPU
     cudaMemcpy(R, Rd, tam, cudaMemcpyDeviceToHost);  
