@@ -15,13 +15,13 @@ LIBS=
 
 BINDIR=bin
 OBJDIR=obj
-OBJFILES=mmatriz.o
+OBJFILES=main.ou
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
 SOURCEDIR=src
 TESTDIR=test
 
 #### Secao das regras ####
-$(OBJDIR)/%.o: $(SOURCEDIR)/%.cu
+$(OBJDIR)/%.ou: $(SOURCEDIR)/%.cu
 	@echo
 	@echo Compilando $<...
 	$(NVCC) $(INCLUDES) $(NVCCFLAGS) $< -o $@

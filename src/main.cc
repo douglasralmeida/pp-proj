@@ -13,8 +13,8 @@ void help(const char* execname) {
     cout << "Wrong command syntax. Usage: " << execname << " #datasetfile #points-in-dataset #num-of-dimensions" << endl;
 }
 
-int main(int argc, const char* argv[]){
-    Dataset dataset;
+int main(int argc, const char* argv[]) {
+    Dataset* dataset;
 
     if (argc < 4) {
         help(argv[0]);
@@ -27,7 +27,13 @@ int main(int argc, const char* argv[]){
     const int numDim = atoi(argv[3]);
 
     //Carrega os dados para a memória
-    dataset_open(datafile);
+    dataset = new Dataset(numPoints, numDim);
+    if (dataset->loadFromFile(datafile)) {
+        dataset->show();
+    }
+    else {
+        exit(EXIT_FAILURE);
+    }
 
     exit(EXIT_SUCCESS);
 }

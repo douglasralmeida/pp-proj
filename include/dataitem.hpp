@@ -4,8 +4,9 @@
 */
 
 #ifndef DATAITEM_HPP
-
 #define DATAITEM_HPP
+
+#include "datatype.hpp"
 
 class Dataitem {
     private:
@@ -13,7 +14,7 @@ class Dataitem {
     public:       
         Datatype* getAttributes();
 
-        void setAttributes(Datatype* attributes);
+        void setAttributes(FILE* file, int dimension);
 };
 
 #endif //DATAITEM_HPP
