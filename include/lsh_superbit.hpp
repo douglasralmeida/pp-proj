@@ -14,10 +14,6 @@ class LSH_Superbit: public LSH {
         Superbit* sb;
 
         int computeSuperbit(int stages, int buckets, int dimensions);
-
-        int* hash(float* attributes, int n);
-
-        int* hash(int* attributes, int n);
     public:
         LSH_Superbit(int nbuckets, int nstages, int dimensions);
 
@@ -25,6 +21,6 @@ class LSH_Superbit: public LSH {
 
         ~LSH_Superbit();
 
-        bool createIndex();
+        int* hash(float* attributes, int n);
 };
 #endif //LSHSUPERBIT_HPP

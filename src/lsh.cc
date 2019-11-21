@@ -18,11 +18,7 @@ LSH::~LSH() {
 
 }
 
-bool LSH::createIndex() {
-
-}
-
-int* LSH::hash(bool* attributes, int n) {
+int* LSH::hashSign(bool* attributes, int n) {
     int i;
     int j;
     int* r = new int[stages];
@@ -42,16 +38,4 @@ int* LSH::hash(bool* attributes, int n) {
         r[i] = (int)(acc[i] % buckets);
 
     return r;
-}
-
-int* LSH::hash(int* attributes, int n) {
-    int* result = new int[stages];
-    int rows = n / stages;
-
-    for (int i = 0; i < n; i++) {
-        int stage = std::min(i /rows, stages - 1);
-        result[stage] = (int)((result[stage] + (long)attributes[i] * LARGE_PRIME) % buckets);
-    }
-
-    return result;
 }

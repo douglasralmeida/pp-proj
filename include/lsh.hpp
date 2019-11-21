@@ -16,14 +16,10 @@ class LSH {
 
         int threshold;
 
-        int* hash(bool* attributes, int n);
-
-        int* hash(int* attributes, int n);
+        int* hashSign(bool* attributes, int n);
     public:
         LSH(int nbuckets, int nstages);
 
         ~LSH();
-
-        bool createIndex();
 };
 #endif //LSH_HPP

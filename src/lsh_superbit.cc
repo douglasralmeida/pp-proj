@@ -20,48 +20,25 @@ LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int dimensions, int seed):
     sb = new Superbit(dimensions, superbit, length / superbit, seed);
 }
 
-LSH::~LSH() {
-
+LSH_Superbit::~LSH_Superbit() {
+    delete sb;
 }
 
-int computeSuperbit(int stages, int buckets, int dimensions) {
-
-}
-
-bool LSH::createIndex() {
-
-}
-
-int* LSH::hash(bool* attributes, int n) {
-    int i;
-    int j;
-    int* r = new int[stages];
-    long* acc = new long[stages];
-
-    for (i = 0; i < stages; i++)
-        acc[i] = 0;
-    int rows = n / stages;
-    for (i = 0; i < n; i++) {
-        long x = 0;
-        if (attributes[i])
-            x = (i+1) * LARGE_PRIME;
-        j = std::min(i / rows, stages - 1);
-        acc[j] = (acc[j] + x) % INT_MAX;
-    }
-    for (i = 0; i < stages; i++)
-        r[i] = (int)(acc[i] % buckets);
-
-    return r;
-}
-
-int* LSH::hash(int* attributes, int n) {
-    int* result = new int[stages];
-    int rows = n / stages;
-
-    for (int i = 0; i < n; i++) {
-        int stage = std::min(i /rows, stages - 1);
-        result[stage] = (int)((result[stage] + (long)attributes[i] * LARGE_PRIME) % buckets);
+int LSH_Superbit::computeSuperbit(int stages, int buckets, int dimensions) {
+    int superbit;
+    int length = stages * buckets / 2;
+    
+    for (superbit = dimensions; superbit >= 1; superbit--)
+        if (length % superbit == 0)
+            break;
+    if (superbit == 0) {
+        cout << "Erro. Superbit é igual a 0." << endl;
+        exit(EXIT_FAILURE);
     }
 
-    return result;
+    return superbit;
+}
+
+int* LSH_Superbit::hash(float* attributes, int n) {
+    return hashSign(sb->computeSignature(attributes, n), n);
 }
