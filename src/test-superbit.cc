@@ -39,8 +39,8 @@ int main() {
     Superbit* sb = new Superbit(ARRAY_SIZE, ARRAY_SIZE, 10000 / ARRAY_SIZE, 2);
     bool* s1 = sb->computeSignature(v1, ARRAY_SIZE);
     bool* s2 = sb->computeSignature(v2, ARRAY_SIZE);
-    float esti_similarity = sb->similarity(s1, s2, ARRAY_SIZE);
-    float real_similarity = Math::consineSimilarity(v1, v2, ARRAY_SIZE);
+    double esti_similarity = sb->similarity(s1, s2, ARRAY_SIZE);
+    double real_similarity = Math::consineSimilarity(v1, v2, ARRAY_SIZE);
 
     cout << fixed << setprecision(7) << "Estimated similarity: " << esti_similarity << endl;
     cout << fixed << setprecision(7) << "Real similarity: " << real_similarity << endl;

@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "array.hpp"
+#include "math.hpp"
 
 #define ARRAY_SIZE 10
 

@@ -46,7 +46,7 @@ namespace Math {
     inline static double dotProduct(double* v1, double* v2, int n) {
         double sum = 0;
 
-        for (int i = 0; i < n; i ++)
+        for (int i = 0; i < n; i++)
             sum += (v1[i] * v2[i]);
 
         return sum;
