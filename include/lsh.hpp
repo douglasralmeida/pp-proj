@@ -14,8 +14,6 @@ class LSH {
 
         int stages;
 
-        int threshold;
-
         int* hashSign(bool* attributes, int n);
     public:
         LSH(int nbuckets, int nstages);

@@ -10,16 +10,20 @@ class Superbit {
     private:
         double** hyperplanes;
 
-        int hyperp_length;
+        int dimensions;
 
-        int DEFAULT_LENGTH = 10000;
+        int hyperp_length;
     public:
-        Superbit(const int dimensions, int superbit, int length, int seed);
+        Superbit(const int _dimensions, int _superbit, int _length, int _seed);
+
+        Superbit(const int _dimensions, int _superbit, int _length);
 
         ~Superbit();
 
-        bool* computeSignature(double* v, int n);
+        bool* computeSignature(double* v);
 
-        double similarity(bool* s1, bool* s2, int n);
+        int getSignatureLength();
+
+        double similarity(bool* s1, bool* s2);
 };
 #endif //SUPERBIT_HPP

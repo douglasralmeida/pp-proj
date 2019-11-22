@@ -6,16 +6,18 @@
 #include "superbit.hpp"
 #include "lsh_superbit.hpp"
 
-LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int dimensions):LSH(nbuckets, nstages) {
+LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int ndimensions):LSH(nbuckets, nstages) {
     int length = stages * buckets / 2;
-    int superbit = computeSuperbit(stages, buckets, dimensions);
+    dimensions = ndimensions;
+    int superbit = computeSuperbit(stages, buckets);
 
     sb = new Superbit(dimensions, superbit, length / superbit, length / superbit);
 }
 
-LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int dimensions, int seed):LSH(nbuckets, nstages) {
+LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int ndimensions, int seed):LSH(nbuckets, nstages) {
     int length = stages * buckets / 2;
-    int superbit = computeSuperbit(stages, buckets, dimensions);
+    dimensions = ndimensions;
+    int superbit = computeSuperbit(stages, buckets);
 
     sb = new Superbit(dimensions, superbit, length / superbit, seed);
 }
@@ -24,7 +26,7 @@ LSH_Superbit::~LSH_Superbit() {
     delete sb;
 }
 
-int LSH_Superbit::computeSuperbit(int stages, int buckets, int dimensions) {
+int LSH_Superbit::computeSuperbit(int stages, int buckets) {
     int superbit;
     int length = stages * buckets / 2;
     
@@ -39,6 +41,9 @@ int LSH_Superbit::computeSuperbit(int stages, int buckets, int dimensions) {
     return superbit;
 }
 
-int* LSH_Superbit::hash(float* attributes, int n) {
-    return hashSign(sb->computeSignature(attributes, n), n);
+int* LSH_Superbit::hash(double* attributes) {
+    bool* sig = sb->computeSignature(attributes);
+    int siglen = sb->getSignatureLength();
+    
+    return hashSign(sig, siglen);
 }

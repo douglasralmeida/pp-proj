@@ -11,16 +11,18 @@
 
 class LSH_Superbit: public LSH {
     private:
+        int dimensions;
+
         Superbit* sb;
 
-        int computeSuperbit(int stages, int buckets, int dimensions);
+        int computeSuperbit(int stages, int buckets);
     public:
-        LSH_Superbit(int nbuckets, int nstages, int dimensions);
+        LSH_Superbit(int _buckets, int _stages, int _dimensions);
 
-        LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int dimensions, int seed);
+        LSH_Superbit(int _buckets, int _stages, int _dimensions, int _seed);
 
         ~LSH_Superbit();
 
-        int* hash(float* attributes, int n);
+        int* hash(double* attributes);
 };
 #endif //LSHSUPERBIT_HPP
