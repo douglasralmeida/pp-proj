@@ -3,6 +3,7 @@
 ** LSH Superbit - Implementação
 */
 
+#include <iostream>
 #include "superbit.hpp"
 #include "lsh_superbit.hpp"
 
@@ -34,7 +35,7 @@ int LSH_Superbit::computeSuperbit(int stages, int buckets) {
         if (length % superbit == 0)
             break;
     if (superbit == 0) {
-        cout << "Erro. Superbit é igual a 0." << endl;
+        std::cout << "Erro. Superbit é igual a 0." << std::endl;
         exit(EXIT_FAILURE);
     }
 

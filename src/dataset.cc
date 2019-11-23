@@ -7,6 +7,7 @@
 #include <iostream>
 #include "datatype.hpp"
 #include "dataset.hpp"
+#include "lsh_superbit.hpp"
 
 using namespace std;
 
@@ -14,6 +15,8 @@ Dataset::Dataset(long _length, int _dimensions) {
     items = new Datatype[_length*_dimensions];
     length = _length;
     dimensions = _dimensions;
+    lsh = NULL;
+    hasHashTables = false;
 }
 
 Dataset::Dataset(const char* filename) {
@@ -36,10 +39,30 @@ Dataset::Dataset(const char* filename) {
     long capacity = length*dimensions;
     for (long i = 0; i < capacity; i++)
         file >> items[i];
+    lsh = NULL;
+    hasHashTables = false;
 }
 
 Dataset::~Dataset() {
     delete items;
+    delete lsh;
+}
+
+void Dataset::computeHashTables(int stages, int buckets) {
+    int *h = NULL;
+
+    lsh = new LSH_Superbit(stages, buckets, dimensions);
+    for (long i = 0; i < length; i++) {
+        long pos = i * dimensions;
+        h = lsh->hash(items + pos);
+        if (h)
+            delete h;
+        else {
+            cout << "Erro ao gerar tabela hash." << endl;
+            return;
+        }
+    }
+    hasHashTables = true;
 }
 
 long Dataset::getLength() {

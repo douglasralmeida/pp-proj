@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include "dataset.hpp"
 
+
 using namespace std;
 
 void help(const char* execname) {
@@ -26,6 +27,10 @@ int main(int argc, const char* argv[]) {
     //Carrega os dados para a memória
     cout << "Carregando conjunto de dados..." << endl;
     dataset = new Dataset(datafile);
+
+    //Gera o índice LSH
+    cout << "Gerando indice de consulta..." << endl;
+    dataset->computeHashTables(2, 20);
     
     //Limpa a memória
     cout << "Encerrando..." << endl;

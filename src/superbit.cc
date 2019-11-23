@@ -17,6 +17,11 @@ Superbit::Superbit(const int _dimensions, int _superbit, int _length, int _seed)
     std::normal_distribution<long double> distribution(0.0, 1.0);
 
     int code_length = _superbit * _length;
+
+    if (_superbit < 1 || _superbit > _dimensions) {
+        cout << "Erro. Profundidade N do SuperBit deve estar entre 1 e o número de dimensões." << endl;
+        exit(EXIT_FAILURE);
+    }
     
     v = Array::alloc2d(code_length, dimensions);
     for (i = 0; i < code_length; i++) {

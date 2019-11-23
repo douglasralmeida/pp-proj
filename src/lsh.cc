@@ -3,6 +3,7 @@
 ** LSH - Implementação
 */
 
+#include <algorithm>
 #include <cstdint>
 #include "lsh.hpp"
 

@@ -6,8 +6,6 @@
 #ifndef LSH_HPP
 #define LSH_HPP
 
-#include "dataset.hpp"
-
 class LSH {
     protected:
         int buckets;
@@ -18,6 +16,6 @@ class LSH {
     public:
         LSH(int nbuckets, int nstages);
 
-        ~LSH();
+        virtual ~LSH();
 };
 #endif //LSH_HPP
