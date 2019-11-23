@@ -35,7 +35,7 @@ int main() {
           mm[i][j] = distribution(generator);  
     }
 
-    LSH_Superbit* lsh = new LSH_Superbit(stages, buckets, ARRAY_SIZE);
+    LSH_Superbit* lsh = new LSH_Superbit(buckets, stages, ARRAY_SIZE);
     int* tables = new int[buckets];
     for (int i = 0; i < buckets; i++)
         tables[i] = 0;
