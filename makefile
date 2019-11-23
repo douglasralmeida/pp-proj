@@ -7,7 +7,7 @@ LDLIBS=
 
 BINDIR=bin
 OBJDIR=obj
-OBJFILES=superbit.o lsh.o lsh_superbit.o dataset.o indexer.o
+OBJFILES=hashtable.o test-hashtable.o
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
 SOURCEDIR=src
 
