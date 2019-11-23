@@ -3,13 +3,14 @@
 ** Objeto DataSet - Implementação
 */
 
+#include <fstream>
 #include <iostream>
 #include "datatype.hpp"
 #include "dataset.hpp"
 
 using namespace std;
 
-Dataset::Dataset(int _length, int _dimensions) {
+Dataset::Dataset(long _length, int _dimensions) {
     items = new Datatype[_length*_dimensions];
     length = _length;
     dimensions = _dimensions;
@@ -32,8 +33,8 @@ Dataset::Dataset(const char* filename) {
         cout << "Erro ao alocar objeto DATASET. Nao ha memoria suficiente." << endl;
         exit(EXIT_FAILURE);
     }
-    int capacity = length*dimensions;
-    for (int i = 0; i < capacity; i++)
+    long capacity = length*dimensions;
+    for (long i = 0; i < capacity; i++)
         file >> items[i];
 }
 
@@ -41,7 +42,7 @@ Dataset::~Dataset() {
     delete items;
 }
 
-int Dataset::getLength() {
+long Dataset::getLength() {
     return length;
 }
 
@@ -49,12 +50,8 @@ int Dataset::getDimensions() {
     return dimensions;
 }
 
-bool Dataset::loadFromFile(std::ifstream stream) {
-    return true;
-}
-
 void Dataset::show() {
-    for (int i = 0; i < length; i++) {
+    for (long i = 0; i < length; i++) {
         for (int j = 0; j < dimensions; j++)
             datatype_show(items + (i*dimensions + j));
         cout << endl;
