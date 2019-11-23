@@ -4,7 +4,6 @@
 */
 
 #include <iostream>
-#include "dataitem.hpp"
 #include "dataset.hpp"
 
 using namespace std;
@@ -14,14 +13,18 @@ int main(int argc, char* argv[]) {
         cout << "Argumentos incompletos." << endl;
         exit(EXIT_FAILURE);
     }
-    const char* arquivo = argv[1];
-    Dataset* dataset = new Dataset(3, 5);
-    if (dataset->loadFromFile(arquivo)) {
+
+    cout << "Teste de manipulacao de datasets" << endl;
+    cout << "================================" << endl << endl;
+
+    const char* filename = argv[1];
+    Dataset* dataset = new Dataset(filename);
+    if (dataset) {
         dataset->show();
         delete dataset;
     }
     else {
-        cout << "Arquivo não encontrado ou inválido." << endl;
+        cout << "Arquivo não encontrado ou invalido." << endl;
         exit(EXIT_FAILURE);
     }
 

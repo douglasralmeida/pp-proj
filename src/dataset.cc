@@ -5,55 +5,58 @@
 
 #include <iostream>
 #include "datatype.hpp"
-#include "dataitem.hpp"
 #include "dataset.hpp"
 
 using namespace std;
 
-Dataset::Dataset(int newcapacity, int newdimension) {
-    items = new Dataitem[newcapacity];
-    capacity = newcapacity;
-    dimension = newdimension;
-    size = 0;
+Dataset::Dataset(int _length, int _dimensions) {
+    items = new Datatype[_length*_dimensions];
+    length = _length;
+    dimensions = _dimensions;
+}
+
+Dataset::Dataset(const char* filename) {
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        cout << "Erro ao abrir arquivo. Ele nao existe ou esta inacessivel." << endl;
+        exit(EXIT_FAILURE);
+    }
+    if (!(file >> length >> dimensions)) {
+        cout << "Erro ao abrir arquivo. Ele esta num formato invalido." << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    items = new Datatype[length*dimensions];
+    if (!items) {
+        cout << "Erro ao alocar objeto DATASET. Nao ha memoria suficiente." << endl;
+        exit(EXIT_FAILURE);
+    }
+    int capacity = length*dimensions;
+    for (int i = 0; i < capacity; i++)
+        file >> items[i];
 }
 
 Dataset::~Dataset() {
     delete items;
 }
 
-int Dataset::getCapacity() {
-    return capacity;
+int Dataset::getLength() {
+    return length;
 }
 
-int Dataset::getDimension() {
-    return dimension;
+int Dataset::getDimensions() {
+    return dimensions;
 }
 
-int Dataset::getSize() {
-    return size;
-}
-
-void Dataset::add(FILE* file) {
-    new(items+size) Dataitem;
-    items[size].setAttributes(file, dimension);
-    size++;
-}
-
-bool Dataset::loadFromFile(const char* filename) {
-    FILE* f = fopen(filename, "rt");
-    if (f == NULL) {
-        cout << "Erro ao abrir arquivo " << filename << "." << endl;
-        return false;
-    }
-    for (int i = 0; i < capacity; i++)
-        add(f);
+bool Dataset::loadFromFile(std::ifstream stream) {
     return true;
 }
 
 void Dataset::show() {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < dimension; j++)
-            datatype_show(items[i].getAttributes() + j);
+    for (int i = 0; i < length; i++) {
+        for (int j = 0; j < dimensions; j++)
+            datatype_show(items + (i*dimensions + j));
         cout << endl;
     }
     cout << endl;

@@ -11,10 +11,10 @@
 
 using namespace std;
 
-typedef float Datatype;
+typedef double Datatype;
 
 inline void datatype_fscanf(FILE* f, Datatype* item) {
-    fscanf(f, "%f", item);
+    fscanf(f, "%lf", item);
 }
 
 inline void datatype_show(Datatype* item) {

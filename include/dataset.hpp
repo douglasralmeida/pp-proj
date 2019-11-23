@@ -6,32 +6,31 @@
 #ifndef DATASET_HPP
 #define DATASET_HPP
 
-#include "dataitem.hpp"
+#include <fstream>
+#include <iostream>
 #include "datatype.hpp"
 
 class Dataset {
     private:
-        int capacity;
+        int length;
         
-        int dimension;
+        int dimensions;
         
-        Dataitem* items;
-        
-        int size;
+        Datatype* items;
 
         void add(FILE* file);
     public:
-        Dataset(int newcapacity, int newdimension);
+        Dataset(int _length, int _dimension);
+
+        Dataset(const char* filename);
 
         ~Dataset();
 
-        int getCapacity();
+        int getLength();
 
-        int getDimension();
-        
-        int getSize();
+        int getDimensions();
 
-        bool loadFromFile(const char* filename);
+        bool loadFromFile(std::ifstream stream);
 
         void show();
 };

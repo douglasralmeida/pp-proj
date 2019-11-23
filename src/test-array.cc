@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include "array.hpp"
-#include "math.hpp"
 
 #define ARRAY_SIZE 10
 
@@ -14,6 +13,9 @@ using namespace std;
 int main() {
     double* source;
     double* dest;
+
+    cout << "Teste de alocacao de vetores" << endl;
+    cout << "============================" << endl << endl;
 
     source = new double[ARRAY_SIZE];
     dest = new double[ARRAY_SIZE];
