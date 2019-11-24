@@ -4,7 +4,7 @@
 */
 
 #include <algorithm>
-#include <cstdint>
+#include <climits>
 #include "lsh.hpp"
 
 int LARGE_PRIME = 433494437; //2147483647; //2^31-1
@@ -23,13 +23,13 @@ LSH::~LSH() {
 void LSH::hashSign(long id, bool* attributes, int n) {
     int i, j;
     int* r = new int[stages];
-    long long* acc = new long long[stages];
+    long* acc = new long[stages];
 
     for (i = 0; i < stages; i++)
         acc[i] = 0;
     int rows = n / stages;
     for (i = 0; i < n; i++) {
-        long long x = 0;
+        long x = 0;
         if (attributes[i])
             x = (i+1) * LARGE_PRIME;
         j = std::min(i / rows, stages - 1);
