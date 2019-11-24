@@ -42,9 +42,9 @@ int LSH_Superbit::computeSuperbit(int stages, int buckets) {
     return superbit;
 }
 
-int* LSH_Superbit::hash(double* attributes) {
+void LSH_Superbit::hash(long id, double* attributes) {
     bool* sig = sb->computeSignature(attributes);
     int siglen = sb->getSignatureLength();
     
-    return hashSign(sig, siglen);
+    hashSign(id, sig, siglen);
 }

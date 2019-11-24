@@ -23,6 +23,6 @@ class LSH_Superbit: public LSH {
 
         ~LSH_Superbit();
 
-        int* hash(double* attributes);
+        void hash(long id, double* attributes);
 };
 #endif //LSHSUPERBIT_HPP

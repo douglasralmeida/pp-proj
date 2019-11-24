@@ -47,21 +47,11 @@ int main() {
                 cout << ' ';
             cout << fixed << setprecision(4) << mm[i][j] << '\t';
         }
-        int* h = lsh->hash(mm[i]);
-        if (h) {
-            tables[h[0]]++;
-            cout << '\t' << h[0] << endl;
-            delete h;
-        }
-        else {
-            cout << "Erro." << endl;
-            exit(EXIT_FAILURE);
-        }
+        lsh->hash(i, mm[i]);
         delete mm[i];
     }
     cout << endl << "Distribution: ";
-    for (int i = 0; i < buckets; i++)
-        cout << '[' << i << "]=" << tables[i] << ' ';
+    lsh->showCounts();
     
     cout << endl << "Finalizando..." << endl;
     delete tables;

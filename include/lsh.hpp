@@ -6,16 +6,22 @@
 #ifndef LSH_HPP
 #define LSH_HPP
 
+#include "hashtable.hpp"
+
 class LSH {
     protected:
         int buckets;
 
         int stages;
 
-        int* hashSign(bool* attributes, int n);
+        void hashSign(long id, bool* attributes, int n);
+
+        Hashtable* table;
     public:
         LSH(int nbuckets, int nstages);
 
-        virtual ~LSH();
+        ~LSH();
+
+        void showCounts();
 };
 #endif //LSH_HPP

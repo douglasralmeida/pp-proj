@@ -12,13 +12,15 @@ int LARGE_PRIME = 433494437; //2147483647; //2^31-1
 LSH::LSH(int nbuckets, int nstages) {
     buckets = nbuckets;
     stages = nstages;
+    table = new Hashtable(buckets, stages);
 }
 
 LSH::~LSH() {
-
+    if (table)
+        delete table;
 }
 
-int* LSH::hashSign(bool* attributes, int n) {
+void LSH::hashSign(long id, bool* attributes, int n) {
     int i, j;
     int* r = new int[stages];
     long long* acc = new long long[stages];
@@ -35,8 +37,12 @@ int* LSH::hashSign(bool* attributes, int n) {
     }
     for (i = 0; i < stages; i++)
         r[i] = (int)(acc[i] % buckets);
-    
-    delete acc;
+    table->setHash(id, r);
 
-    return r;
+    delete acc;
+}
+
+void LSH::showCounts() {
+    if (table)
+        table->showCounts();
 }

@@ -30,7 +30,7 @@ int main(int argc, const char* argv[]) {
 
     //Gera o índice LSH
     cout << "Gerando indice de consulta..." << endl;
-    dataset->computeHashTables(2, 20);
+    dataset->computeHashTables(2, 2);
     
     //Limpa a memória
     cout << "Encerrando..." << endl;

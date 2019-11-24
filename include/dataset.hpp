@@ -7,6 +7,7 @@
 #define DATASET_HPP
 
 #include "datatype.hpp"
+#include "hashtable.hpp"
 #include "lsh_superbit.hpp"
 
 class Dataset {

@@ -16,7 +16,6 @@ Dataset::Dataset(long _length, int _dimensions) {
     length = _length;
     dimensions = _dimensions;
     lsh = NULL;
-    hasHashTables = false;
 }
 
 Dataset::Dataset(const char* filename) {
@@ -49,20 +48,11 @@ Dataset::~Dataset() {
 }
 
 void Dataset::computeHashTables(int stages, int buckets) {
-    int *h = NULL;
-
     lsh = new LSH_Superbit(buckets, stages, dimensions);
     for (long i = 0; i < length; i++) {
         long pos = i * dimensions;
-        h = lsh->hash(items + pos);
-        if (h)
-            delete h;
-        else {
-            cout << "Erro ao gerar tabela hash." << endl;
-            return;
-        }
+        lsh->hash(i, items + pos);
     }
-    hasHashTables = true;
 }
 
 long Dataset::getLength() {
