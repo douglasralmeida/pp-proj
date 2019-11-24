@@ -1,6 +1,6 @@
 #### Secao dos cabecalhos ####
 PROJECTNAME=indexer
-CXXFLAGS=-g -c -Wall -Wextra -Wpedantic $(DEFS) -Iinclude/
+CXXFLAGS=-std=c++11 -g -c -Wall -Wextra -Wpedantic $(DEFS) -Iinclude/
 
 LDFLAGS=-g
 LDLIBS=
