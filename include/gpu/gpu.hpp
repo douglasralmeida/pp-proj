@@ -10,10 +10,10 @@ class GPU {
     protected:
         cudaDeviceProp deviceProp;
 
-        __host__ void exitWithFailure();
+        void exitWithFailure(cudaError_t error);
     public:
-        __host__ GPU();
+        GPU();
 
-        __host__ ~GPU();
+        ~GPU();
 };
 #endif //GPU_HPP

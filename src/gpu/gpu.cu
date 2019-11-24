@@ -5,10 +5,11 @@
 
 #include <iostream>
 #include <cuda_profiler_api.h>
+#include "gpu.hpp"
 
-#define GPU_ERROR "Erro de processamento na GPU:";
+using namespace std;
 
-__host__ GPU::GPU() {
+GPU::GPU() {
     int count;
     cudaError_t error;
 
@@ -16,19 +17,19 @@ __host__ GPU::GPU() {
     cudaProfilerStart();
     error = cudaGetDeviceCount(&count);
     if (error != cudaSuccess)
-        exitWithFailure();
+        exitWithFailure(error);
     cout << "Numero de dispositivos disponíveis: " << count << endl;
     error = cudaGetDeviceProperties(&deviceProp, 0);
     if (error != cudaSuccess) 
-        exitWithFailure();
+        exitWithFailure(error);
     cout << "Dispositivo 0 tem a capacidade computacional " << deviceProp.major << '.' << deviceProp.minor << endl;
 }
 
-__host__ GPU::~GPU() {
+GPU::~GPU() {
     cudaDeviceReset();
 }
 
-__host__ void GPU::exitWithFailure() {
-    cout << GPU_ERROR << ' ' << cudaGetErrorString(erro) << endl;
+void GPU::exitWithFailure(cudaError_t error) {
+    cout << "Erro de processamento na GPU: " << cudaGetErrorString(error) << endl;
     exit(EXIT_FAILURE);
 }

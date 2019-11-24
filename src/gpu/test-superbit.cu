@@ -15,7 +15,7 @@
 using namespace std;
 
 int main() {
-    GPU gpu;
+    GPU* gpu;
     double* v1;
     double* v2;
 

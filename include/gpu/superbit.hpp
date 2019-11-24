@@ -22,18 +22,18 @@ class Superbit {
 
         int hyperp_length;
 
-        __device__ void buildHyperplanes(hpbuilder_t *builderdata);
+        void buildHyperplanes(hpbuilder_t *builderdata);
     public:
-        __host__ Superbit(const int _dimensions, int _superbit, int _length, int _seed);
+        Superbit(const int _dimensions, int _superbit, int _length, int _seed);
 
-        __host__ Superbit(const int _dimensions, int _superbit, int _length);
+        Superbit(const int _dimensions, int _superbit, int _length);
 
-        __host__ ~Superbit();
+        ~Superbit();
 
-        __host__ bool* computeSignature(double* v);
+        bool* computeSignature(double* v);
 
-        __host__ int getSignatureLength();
+        int getSignatureLength();
 
-        __host__ double similarity(bool* s1, bool* s2);
+        double similarity(bool* s1, bool* s2);
 };
 #endif //SUPERBIT_HPP

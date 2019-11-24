@@ -10,7 +10,7 @@
 #include "math.hpp"
 #include "superbit.hpp"
 
-__host__ Superbit::Superbit(const int _dimensions, int _superbit, int _length, int _seed):dimensions(_dimensions) {
+Superbit::Superbit(const int _dimensions, int _superbit, int _length, int _seed):dimensions(_dimensions) {
     hpbuilder_t builderdata;
 
     if (_superbit < 1 || _superbit > _dimensions) {
@@ -28,14 +28,14 @@ __host__ Superbit::Superbit(const int _dimensions, int _superbit, int _length, i
     Array::dealloc2d(&builderdata.v, hyperp_length);
 }
 
-__host__  Superbit::Superbit(const int _dimensions, int _superbit, int _length):
+Superbit::Superbit(const int _dimensions, int _superbit, int _length):
     Superbit(_dimensions, _superbit, _length, time(NULL)) {}
 
-__host__ Superbit::~Superbit() {
+Superbit::~Superbit() {
     Array::dealloc2d(&hyperplanes, hyperp_length);
 }
 
-__host__ void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
+void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     int i, j, k;
     std::default_random_engine generator(builderdata->seed);
     std::normal_distribution<long double> distribution(0.0, 1.0);
@@ -65,7 +65,7 @@ __host__ void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     }
 }
 
-__host__ bool* Superbit::computeSignature(double* v) {
+bool* Superbit::computeSignature(double* v) {
     bool* sig = new bool[hyperp_length];
 
     for (int i = 0; i < hyperp_length; i++)
@@ -74,11 +74,11 @@ __host__ bool* Superbit::computeSignature(double* v) {
     return sig;
 }
 
-__host__ int Superbit::getSignatureLength() {
+int Superbit::getSignatureLength() {
     return hyperp_length;
 }
 
-__host__ double Superbit::similarity(bool* s1, bool* s2) {
+double Superbit::similarity(bool* s1, bool* s2) {
     double sum = 0;
 
     for (int i = 0; i < hyperp_length; i++)
