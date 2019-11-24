@@ -19,11 +19,11 @@ Hashtable::Hashtable(int _buckets, int _hashsize) {
 
 Hashtable::~Hashtable() {
     for (int i = 0; i < length; i++) {
-        delete items[i].index;
+        delete[] items[i].index;
         if (items[i].hash)
-            delete items[i].hash;
+            delete[] items[i].hash;
     }
-    delete items;
+    delete[] items;
 }
 
 void Hashtable::setHash(int key, int* hash) {

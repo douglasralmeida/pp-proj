@@ -39,7 +39,7 @@ void LSH::hashSign(long id, bool* attributes, int n) {
         r[i] = (int)(acc[i] % buckets);
     table->setHash(id, r);
 
-    delete acc;
+    delete[] acc;
 }
 
 void LSH::showCounts() {

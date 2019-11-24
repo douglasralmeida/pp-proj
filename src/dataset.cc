@@ -44,7 +44,7 @@ Dataset::Dataset(const char* filename) {
 }
 
 Dataset::~Dataset() {
-    delete items;
+    delete[] items;
     delete lsh;
 }
 
