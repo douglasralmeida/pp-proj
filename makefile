@@ -1,6 +1,6 @@
 #### Secao dos cabecalhos ####
 PROJECTNAME=indexer
-CXXFLAGS=-std=c++11 -g -c -Wall -Wextra -Wpedantic $(DEFS) -Iinclude/
+CXXFLAGS=-std=c++11 -g -c -Wall -Wextra -Wpedantic $(DEFS) -Iinclude/cpu/
 
 LDFLAGS=-g
 LDLIBS=
@@ -8,9 +8,10 @@ LDLIBS=
 BINDIR=bin
 OBJDIR=obj
 #OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o test-lshsb.o
-OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o indexer.o
+#OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o indexer.o
+OBJFILES=superbit.o test-superbit.o
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
-SOURCEDIR=src
+SOURCEDIR=src/cpu
 
 #### Secao das regras ####
 $(OBJDIR)/%.o: $(SOURCEDIR)/%.cc

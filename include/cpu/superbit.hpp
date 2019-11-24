@@ -6,6 +6,14 @@
 #ifndef SUPERBIT_HPP
 #define SUPERBIT_HPP
 
+typedef struct hpbuilder_s {
+    int superbit;
+    int length;
+    int seed;
+    double** v;
+    double** w;
+} hpbuilder_t;
+
 class Superbit {
     private:
         double** hyperplanes;
@@ -13,6 +21,8 @@ class Superbit {
         int dimensions;
 
         int hyperp_length;
+
+        void buildHyperplanes(hpbuilder_t *builderdata);
     public:
         Superbit(const int _dimensions, int _superbit, int _length, int _seed);
 

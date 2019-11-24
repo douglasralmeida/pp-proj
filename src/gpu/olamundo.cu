@@ -16,7 +16,7 @@ __global__ void cuda_olamundo(){
 int main(int argc, const char * argv[]){
     int count;
     cudaError_t erro;
-    cudaDeviceProp deviceProp; 
+    cudaDeviceProp deviceProp;
     
     cudaProfilerStart();
     erro = cudaGetDeviceCount(&count);
