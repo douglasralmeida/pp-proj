@@ -1,40 +1,51 @@
-#### Secao dos cabecalhos ####
-PROJECTNAME=indexer
-CXXFLAGS=-std=c++11 -g -c -Wall -Wextra -Wpedantic $(DEFS) -Iinclude/cpu/
+# Makefile do Projeto Algo. Paralelos
+# Algoritmo LSH para plataforma CUDA
 
-LDFLAGS=-g
-LDLIBS=
+#### Secao dos cabecalhos ####
+PROJECTNAME=indexer-cuda
+HOST_COMPILER=g++
+CUDA_PATH =/usr/local/cuda
+NVCC=$(CUDA_PATH)/bin/nvcc -ccbin $(HOST_COMPILER)
+DEFS=
+NVCCFLAGS=-std=c++11 -m64 -g -G -c
+BUILD_TYPE=debug
+LDFLAGS=
+INCLUDES=-I../../Common -Iinclude/gpu
+LIBDIRS=-L/usr/local/cuda-10.1/lib64
+LDLIBS=-lcudart
 
 BINDIR=bin
 OBJDIR=obj
+#OBJFILES=gpu.ou superbit.ou test-superbit.ou
 OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o test-lshsb.o
 #OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o indexer.o
-#OBJFILES=superbit.o test-superbit.o
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
-SOURCEDIR=src/cpu
+
+SOURCEDIR=src/gpu
+TESTDIR=test
 
 #### Secao das regras ####
-$(OBJDIR)/%.o: $(SOURCEDIR)/%.cc
+$(OBJDIR)/%.ou: $(SOURCEDIR)/%.cu
 	@echo
 	@echo Compilando $<...
-	$(CXX) $(INCLUDES) $(CXXFLAGS) $< -o $@
+	$(NVCC) $(NVCCFLAGS) $(INCLUDES)  $< -o $@
 
 # Impede do comando nao ser executado caso exista um arquivo de mesmo nome ja atualizado.
 .PHONY: all clean run
 
-all: $(PROJECTNAME).exe
+all: clean $(PROJECTNAME)
 
-$(PROJECTNAME).exe: $(OBJECTS)
+$(PROJECTNAME): $(OBJECTS)
 	@echo
 	@echo Gerando executavel...
-	$(CXX) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LIBDIRS) $(LDLIBS)
 
 clean:
 	@echo
 	@echo Excluindo executavel...
-	del $(BINDIR)\$(PROJECTNAME).exe
+	rm -f $(BINDIR)/$(PROJECTNAME)
 	@echo Excluindo objetos...
-	del $(OBJECTS)
+	rm -f $(OBJECTS)
 
-run: $(PROJECTNAME).exe
-	./$(BINDIR)/$(PROJECTNAME).exe
+run: $(PROJECTNAME)
+	./$(BINDIR)/$(PROJECTNAME)
