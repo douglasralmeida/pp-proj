@@ -14,7 +14,7 @@ class LSH {
 
         int stages;
 
-        void hashSign(long id, bool* attributes, int n);
+        void hashSign(long id, bool* attributes, long n);
 
         Hashtable* table;
     public:

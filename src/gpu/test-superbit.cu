@@ -1,11 +1,10 @@
 /*
 ** Projeto de Algoritmos Paralelos
-** Superbit - TESTE em CUDA
+** Superbit - TESTE
 */
 
 #include <iomanip>
 #include <iostream>
-#include "gpu.hpp"
 #include "math.hpp"
 #include "array.hpp"
 #include "superbit.hpp"
@@ -15,15 +14,12 @@
 using namespace std;
 
 int main() {
-    GPU* gpu;
     double* v1;
     double* v2;
 
     cout << "COSINE SIMILARITY vs SUPERBIT ESTIMATED SIMILARITY" << endl;
-    cout << "==================================================" << endl;
-    cout << "CUDA version." << endl;
+    cout << "==================================================" << endl << endl;
 
-    gpu = new GPU();
     v1 = new double[ARRAY_SIZE];
     v2 = new double[ARRAY_SIZE];
 
@@ -52,7 +48,6 @@ int main() {
     delete v1;
     delete v2;
     delete sb;
-    delete gpu;
 
 	exit(EXIT_SUCCESS);
 }

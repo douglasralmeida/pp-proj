@@ -9,7 +9,7 @@
 #define HASH_CAPACITY 10000
 
 typedef struct hashitem_s {
-    int count;
+    long count;
 
     long* index;
 

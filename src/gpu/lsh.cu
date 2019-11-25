@@ -5,9 +5,10 @@
 
 #include <algorithm>
 #include <climits>
+#include <iostream>
 #include "lsh.hpp"
 
-int LARGE_PRIME = 433494437; //2147483647; //2^31-1
+long long LARGE_PRIME = 433494437; //2147483647; //2^31-1
 
 LSH::LSH(int nbuckets, int nstages) {
     buckets = nbuckets;
@@ -20,23 +21,24 @@ LSH::~LSH() {
         delete table;
 }
 
-void LSH::hashSign(long id, bool* attributes, int n) {
-    int i, j;
+void LSH::hashSign(long id, bool* attributes, long n) {
+    long i, j;
     int* r = new int[stages];
-    long* acc = new long[stages];
+    int* acc = new int[stages];
 
     for (i = 0; i < stages; i++)
         acc[i] = 0;
-    int rows = n / stages;
+    long rows = n / stages;
     for (i = 0; i < n; i++) {
-        long x = 0;
+        long long x = 0;
         if (attributes[i])
             x = (i+1) * LARGE_PRIME;
-        j = std::min(i / rows, stages - 1);
+        j = std::min(i / rows, (long)stages - 1);
         acc[j] = (acc[j] + x) % INT_MAX;
     }
     for (i = 0; i < stages; i++)
-        r[i] = (int)(acc[i] % buckets);
+        r[i] = (acc[i] % buckets);
+    
     table->setHash(id, r);
 
     delete[] acc;
