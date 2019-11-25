@@ -55,10 +55,11 @@ Superbit::~Superbit() {
 
 void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     long i, j, k;
-    curandState *devStates = cudaMalloc((void**)devStates, THREADS * BLOCKS * sizeof(curandState));
+    curandState* devStates;
     double* v = builderdata->v;
     double* w = builderdata->w;
 
+    devStates = cudaMalloc((void**)devStates, THREADS * BLOCKS * sizeof(curandState));
     cuda_distribuition<<<BLOCKS, THREADS>>>(devStates, v);
 
     //Normaliza
