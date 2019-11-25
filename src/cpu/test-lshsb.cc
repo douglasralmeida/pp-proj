@@ -41,6 +41,7 @@ int main() {
         tables[i] = 0;
 
     //começa a medir o tempo aqui
+    clock_t begin = clock();
 
     LSH_Superbit* lsh = new LSH_Superbit(buckets, stages, ARRAY_SIZE);
     cout << "Processando entradas..." << endl;
@@ -55,11 +56,16 @@ int main() {
     }
 
     //termina aqui
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
     cout << endl << "Distribution: ";
     lsh->showCounts();
+
+    cout << endl << "Tempo gasto: " << elapsed_secs << endl << endl;
     
     cout << endl << "Finalizando..." << endl;
+
     delete tables;
     delete mm;
     delete lsh;
