@@ -17,8 +17,8 @@ LDLIBS=-lcudart
 BINDIR=bin
 OBJDIR=obj
 #OBJFILES=gpu.ou superbit.ou test-superbit.ou
-OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o test-lshsb.o
-#OBJFILES=dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o indexer.o
+OBJFILES=dataset.ou hashtable.ou lsh.ou superbit.ou lsh_superbit.ou test-lshsb.ou
+#OBJFILES=dataset.ou hashtable.ou lsh.ou superbit.ou lsh_superbit.ou indexer.ou
 OBJECTS=$(addprefix $(OBJDIR)/, $(OBJFILES))
 
 SOURCEDIR=src/gpu
