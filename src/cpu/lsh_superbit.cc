@@ -8,7 +8,7 @@
 #include "lsh_superbit.hpp"
 
 LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int ndimensions):LSH(nbuckets, nstages) {
-    int length = stages * buckets / 2;
+    long length = stages * buckets / 2;
     dimensions = ndimensions;
     int superbit = computeSuperbit(stages, buckets);
 
@@ -16,7 +16,7 @@ LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int ndimensions):LSH(nbuck
 }
 
 LSH_Superbit::LSH_Superbit(int nbuckets, int nstages, int ndimensions, int seed):LSH(nbuckets, nstages) {
-    int length = stages * buckets / 2;
+    long length = stages * buckets / 2;
     dimensions = ndimensions;
     int superbit = computeSuperbit(stages, buckets);
 
@@ -44,7 +44,7 @@ int LSH_Superbit::computeSuperbit(int stages, int buckets) {
 
 void LSH_Superbit::hash(long id, double* attributes) {
     bool* sig = sb->computeSignature(attributes);
-    int siglen = sb->getSignatureLength();
-    
+    long siglen = sb->getSignatureLength();
+
     hashSign(id, sig, siglen);
 }

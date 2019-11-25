@@ -10,7 +10,7 @@
 #include "math.hpp"
 #include "superbit.hpp"
 
-Superbit::Superbit(const int _dimensions, int _superbit, int _length, int _seed):dimensions(_dimensions) {
+Superbit::Superbit(const int _dimensions, int _superbit, long _length, int _seed):dimensions(_dimensions) {
     hpbuilder_t builderdata;
 
     if (_superbit < 1 || _superbit > _dimensions) {
@@ -28,7 +28,7 @@ Superbit::Superbit(const int _dimensions, int _superbit, int _length, int _seed)
     Array::dealloc2d(&builderdata.v);
 }
 
-Superbit::Superbit(const int _dimensions, int _superbit, int _length):
+Superbit::Superbit(const int _dimensions, int _superbit, long _length):
     Superbit(_dimensions, _superbit, _length, time(NULL)) {}
 
 Superbit::~Superbit() {
@@ -71,7 +71,7 @@ bool* Superbit::computeSignature(double* v) {
     long pos;
     bool* sig = new bool[hyperp_length];
 
-    for (int i = 0; i < hyperp_length; i++) {
+    for (long i = 0; i < hyperp_length; i++) {
         pos = i * dimensions;
         sig[i] = (Math::dotProduct(hyperplanes + pos, v, dimensions) >= 0.0);
     }
@@ -79,14 +79,14 @@ bool* Superbit::computeSignature(double* v) {
     return sig;
 }
 
-int Superbit::getSignatureLength() {
+long Superbit::getSignatureLength() {
     return hyperp_length;
 }
 
 double Superbit::similarity(bool* s1, bool* s2) {
     double sum = 0;
 
-    for (int i = 0; i < hyperp_length; i++)
+    for (long i = 0; i < hyperp_length; i++)
         if (s1[i] == s2[i])
             sum++;
     sum /= hyperp_length;

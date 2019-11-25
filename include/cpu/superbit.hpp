@@ -7,7 +7,7 @@
 #define SUPERBIT_HPP
 
 typedef struct hpbuilder_s {
-    int superbit;
+    long superbit;
     int length;
     int seed;
     double* v;
@@ -20,19 +20,19 @@ class Superbit {
 
         int dimensions;
 
-        int hyperp_length;
+        long hyperp_length;
 
         void buildHyperplanes(hpbuilder_t *builderdata);
     public:
-        Superbit(const int _dimensions, int _superbit, int _length, int _seed);
+        Superbit(const int _dimensions, int _superbit, long _length, int _seed);
 
-        Superbit(const int _dimensions, int _superbit, int _length);
+        Superbit(const int _dimensions, int _superbit, long _length);
 
         ~Superbit();
 
         bool* computeSignature(double* v);
 
-        int getSignatureLength();
+        long getSignatureLength();
 
         double similarity(bool* s1, bool* s2);
 };

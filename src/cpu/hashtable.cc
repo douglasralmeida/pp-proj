@@ -13,6 +13,10 @@ Hashtable::Hashtable(int _buckets, int _hashsize) {
         items[i].hash = NULL;
         items[i].count = 0;
     }
+    if (_hashsize > HASH_CAPACITY) {
+        std::cout << "Erro. Tamanho do hash maior que a capacidade definida. Nao pode ser superior a 10.000." << std::endl;
+        exit(-1);
+    }
     hashsize = _hashsize;
     length = _buckets;
 }
@@ -50,7 +54,7 @@ void Hashtable::showCounts() {
 }
 
 void Hashtable::showIds(int hash) {
-    for (int i = 0; i < items[hash].count; i++)
+    for (long i = 0; i < items[hash].count; i++)
         std::cout << items[hash].index[i] << " ";
     std::cout << std::endl;
 }
