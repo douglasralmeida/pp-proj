@@ -9,44 +9,41 @@
 #include <cmath>
 
 namespace Math {
-    inline double* product(double x, double* v, int n) {
+    inline double* product(double x, double* v, long n) {
         double* result = new double[n];
 
-        for (int i = 0; i < n; i++)
+        for (long i = 0; i < n; i++)
             result[i] = x * v[i];
 
         return result;
     }
 
-    inline double* sub(double* v1, double* v2, int n) {
-        double* result = new double[n];
-
-        for (int i = 0; i < n; i++)
-            result[i] = v1[i] - v2[i];
-
-        return result;
+    inline void sub(double* v1, double* v2, long n) {
+        for (long i = 0; i < n; i++)
+            v1[i] = v1[i] - v2[i];
+        delete[] v2;
     }
 
-    inline double norm(double* v, int n) {
+    inline double norm(double* v, long n) {
         double sum = 0;
 
-        for (int i = 0; i < n; i++)
+        for (long i = 0; i < n; i++)
             sum += (v[i] * v[i]);
             
         return sqrt(sum);
     }
 
-    inline void normalize(double* v, int n) {
+    inline void normalize(double* v, long n) {
         double nm = norm(v, n);
 
-        for (int i = 0; i < n; i++)
+        for (long i = 0; i < n; i++)
             v[i] /= nm;
     }
 
-    inline static double dotProduct(double* v1, double* v2, int n) {
+    inline static double dotProduct(double* v1, double* v2, long n) {
         double sum = 0;
 
-        for (int i = 0; i < n; i++)
+        for (long i = 0; i < n; i++)
             sum += (v1[i] * v2[i]);
 
         return sum;

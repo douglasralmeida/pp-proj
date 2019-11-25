@@ -12,20 +12,14 @@
 using namespace std;
 
 namespace Array {
-    inline double** alloc2d(int row, int col) {
-        double** a = new double*[row];
-
-        for (int i = 0; i < row; i++)
-            a[i] = new double[col];
+    inline double* alloc2d(int row, int col) {
+        double* a = new double[row*col];
 
         return a;
     }
 
-    inline void dealloc2d(double*** vector, int row) {
-        double** v = *vector;
-
-        for (int i = 0; i < row; i++)
-            delete[] v[i];
+    inline void dealloc2d(double** vector) {
+        double* v = *vector;
         
         delete[] v;
     }
