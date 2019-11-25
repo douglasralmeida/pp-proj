@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 #include <random>
+#include "gpu.hpp"
 #include "math.hpp"
 #include "array.hpp"
 #include "lsh_superbit.hpp"
@@ -20,12 +21,13 @@ using namespace std;
 
 int main() {
     double** mm;
+    GPU* gpu;
     std::default_random_engine generator(time(NULL));
     std::normal_distribution<long double> distribution(0.0, 1.0);
 
     cout << "LSH SUPERBIT" << endl;
     cout << "============" << endl << endl;
-
+    gpu = new GPU;
     int stages = 100; //2
     int buckets = 100;//4
 
@@ -66,6 +68,7 @@ int main() {
     
     cout << endl << "Finalizando..." << endl;
 
+    delete gpu;
     delete tables;
     delete mm;
     delete lsh;
