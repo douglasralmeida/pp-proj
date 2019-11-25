@@ -10,13 +10,13 @@ typedef struct hpbuilder_s {
     int superbit;
     int length;
     int seed;
-    double** v;
-    double** w;
+    double* v;
+    double* w;
 } hpbuilder_t;
 
 class Superbit {
     private:
-        double** hyperplanes;
+        double* hyperplanes;
 
         int dimensions;
 
