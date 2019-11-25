@@ -12,8 +12,8 @@
 #include "array.hpp"
 #include "lsh_superbit.hpp"
 
-#define ARRAY_SIZE 100
-#define ARRAY_COUNT 100000
+#define ARRAY_SIZE 64
+#define ARRAY_COUNT 4096
 //define ARRAY_SIZE 3
 //efine ARRAY_COUNT 100
 
@@ -28,8 +28,8 @@ int main() {
     cout << "LSH SUPERBIT" << endl;
     cout << "============" << endl << endl;
     gpu = new GPU;
-    int stages = 100; //2
-    int buckets = 100;//4
+    int stages = 64; //2
+    int buckets = 64;//4
 
     cout << "Gerando entradas aleatorias..." << endl;
     mm = new double*[ARRAY_COUNT];

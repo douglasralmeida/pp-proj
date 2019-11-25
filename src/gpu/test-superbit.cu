@@ -9,7 +9,7 @@
 #include "array.hpp"
 #include "superbit.hpp"
 
-#define ARRAY_SIZE 10
+#define ARRAY_SIZE 16
 
 using namespace std;
 

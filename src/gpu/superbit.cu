@@ -61,14 +61,19 @@ void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     double* v = builderdata->v;
     double* w = builderdata->w;
 
+    int PASSO = THREADS*BLOCKS;
+
     cudaMalloc((void**)&devStates, THREADS * BLOCKS * sizeof(curandState));
     cuda_rand_init<<<BLOCKS, THREADS>>>(builderdata->seed, devStates);
-    cuda_distribuition<<<BLOCKS, THREADS>>>(devStates, v);
+    for (i = 0; i < hyperp_length; i += PASSO) {
+        cuda_distribuition<<<BLOCKS, THREADS>>>(devStates, v);
+    }
 
     //Normaliza
-    double rV;
-    cudaMemcpy(&rV, v, sizeof(double), cudaMemcpyDeviceToHost);
-    std::cout << rV << endl;
+
+    //double rV;
+    //cudaMemcpy(&rV, v, sizeof(double), cudaMemcpyDeviceToHost);
+    //std::cout << rV << endl;
 
     cudaFree(v);
     exit(0);
