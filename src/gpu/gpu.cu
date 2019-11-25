@@ -9,6 +9,9 @@
 
 using namespace std;
 
+//GPU com capacidade computacional 5.2
+#define TAM_BLOCO 32
+
 GPU::GPU() {
     int count;
     cudaError_t error;

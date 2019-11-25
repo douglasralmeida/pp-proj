@@ -13,15 +13,17 @@ using namespace std;
 
 namespace Array {
     inline double* alloc2d(int row, int col) {
-        double* a = new double[row*col];
+        double* ad;
+        unsigned int tam = row * col * sizeof(double);
 
-        return a;
+        cudaMalloc((void**)&ad, tam);
+
+        return ad;
     }
 
     inline void dealloc2d(double** vector) {
         double* v = *vector;
-        
-        delete[] v;
+        cudaFree(v);
     }
 
     inline void copy(double* source, double* dest, int n) {

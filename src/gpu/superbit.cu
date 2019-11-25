@@ -3,12 +3,30 @@
 ** Algoritmo Superbit - Implementação em CPU
 */
 
+#include <curand.h>
+#include <curand_kernel.h>
+
 #include <cmath>
 #include <random>
 #include <ctime>
 #include "array.hpp"
 #include "math.hpp"
 #include "superbit.hpp"
+
+#define THREADS 64
+#define BLOCKS 64
+
+__global__ void cuda_rand_init(unsigned long seed, curandState* state) {
+    int id = threadIdx.x + blockIdx.x * blockDim.x;
+
+    curand_init(seed, id, 0, &state[id]);
+}
+
+__global__ void cuda_distribuition(curandState* state, double* vector) {
+    int id = threadIdx.x + blockIdx.x * blockDim.x;
+
+    vector[id] = curand_normal_double(&state[id]);
+}
 
 Superbit::Superbit(const int _dimensions, int _superbit, long _length, int _seed):dimensions(_dimensions) {
     hpbuilder_t builderdata;
@@ -37,17 +55,18 @@ Superbit::~Superbit() {
 
 void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     long i, j, k;
-    std::default_random_engine generator(builderdata->seed);
-    std::normal_distribution<long double> distribution(0.0, 1.0);
+    curandState *devStates = cudaMalloc((void**)devStates, THREADS * BLOCKS * sizeof(curandState));
     double* v = builderdata->v;
     double* w = builderdata->w;
 
-    for (i = 0; i < hyperp_length; i++) {
-        long x = i * dimensions;
-        for (j = 0; j < dimensions; j++)
-            v[x + j] = distribution(generator);
-        Math::normalize(v + x, dimensions);
-    }
+    cuda_distribuition<<<BLOCKS, THREADS>>>(devStates, v);
+
+    //Normaliza
+    std::cout << v[10] << endl;
+
+    cudaFree(v);
+    exit(0);
+
 
     for (i = 0; i <= (builderdata->length-1); i++) {
         for (j = 1; j <= builderdata->superbit; j++) {
