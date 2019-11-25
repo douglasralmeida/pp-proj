@@ -6,6 +6,8 @@
 #include <curand.h>
 #include <curand_kernel.h>
 
+#include <cstdio>
+
 #include <cmath>
 #include <random>
 #include <ctime>
@@ -59,11 +61,14 @@ void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     double* v = builderdata->v;
     double* w = builderdata->w;
 
-    devStates = cudaMalloc((void**)devStates, THREADS * BLOCKS * sizeof(curandState));
+    cudaMalloc((void**)&devStates, THREADS * BLOCKS * sizeof(curandState));
+    cuda_rand_init<<<BLOCKS, THREADS>>>(builderdata->seed, devStates);
     cuda_distribuition<<<BLOCKS, THREADS>>>(devStates, v);
 
     //Normaliza
-    std::cout << v[10] << endl;
+    double rV;
+    cudaMemcpy(&rV, v, sizeof(double), cudaMemcpyDeviceToHost);
+    std::cout << rV << endl;
 
     cudaFree(v);
     exit(0);
