@@ -23,8 +23,8 @@ TESTHTFILES=hashtable.o test-hashtable.o
 TESTSBFILES=superbit.o test-superbit.o
 TESTDSFILES=hashtable.o lsh.o superbit.o lsh_superbit.o dataset.o test-dataset.o
 TESTLSHFILES=hashtable.o lsh.o superbit.o lsh_superbit.o dataset.o test-lshsb.o
-TESTCUDASBFILES=gpu.o superbit.ou test-superbit.o
-TESTCUDASLHFILES=gpu.o hashtable.o lsh.o superbit.ou lsh_superbit.o dataset.o test-lshsb.o
+TESTCUDASBFILES=gpu.ou superbit.ou test-superbit.o
+TESTCUDASLHFILES=gpu.ou hashtable.o lsh.o superbit.ou lsh_superbit.o dataset.o test-lshsb.o
 
 ALLFILES=gpu.o dataset.o hashtable.o lsh.o superbit.o superbit.ou lsh_superbit.o test-array.o test-hashtable.o test-superbit.o test-dataset.o test-lshsb.o indexer.o
 ALLOBJECTS=$(addprefix $(OBJDIR)/, $(ALLFILES))
