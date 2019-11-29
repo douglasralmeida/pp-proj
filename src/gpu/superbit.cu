@@ -13,11 +13,12 @@
 #define THREADS_PER_BLOCK 512
 
 __global__ void cudaComputeSignature(double* hyperplanes, double* v, int* dimensions, bool* sig, long* hyperp_length) {
-    long pos = (threadIdx.x + blockDim.x * blockIdx.x) * (*dimensions);
+    int d_dimensions = *dimensions;
+    long pos = (threadIdx.x + blockDim.x * blockIdx.x) * d_dimensions;
     double sum = 0.0;
 
-    for (int i=0; i < (*dimensions); i++)
-        sum += hyperplanes[i+pos] * v[i];}
+    for (int i = 0; i < d_dimensions; i++)
+        sum += hyperplanes[i+pos] * v[i];
     sig[threadIdx.x + blockDim.x * blockIdx.x] = (sum>=0);
 }
 
@@ -94,7 +95,7 @@ bool* Superbit::computeSignature(double* v) {
     int NUM_OF_BLOCKS = (hyperp_length + THREADS_PER_BLOCK - 1)/THREADS_PER_BLOCK;
 
     cudaMemcpy(d_v,v,sizeof(double)*dimensions,cudaMemcpyHostToDevice);
-    cudaComputeSignature<<<NUM_OF_BLOCKS,THREADS_PER_BLOCK>>>(d_hyperplanes,d_v,d_dimensions,d_sig,d_hyperp_length);
+    cudaComputeSignature<<<NUM_OF_BLOCKS, THREADS_PER_BLOCK>>>(d_hyperplanes, d_v, d_dimensions, d_sig, d_hyperp_length);
     cudaMemcpy(sig,d_sig,sizeof(bool)*hyperp_length,cudaMemcpyDeviceToHost);
 
     return sig;
