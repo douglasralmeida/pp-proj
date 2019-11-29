@@ -17,8 +17,15 @@ int main() {
     double* v1;
     double* v2;
 
-    cout << "COSINE SIMILARITY vs SUPERBIT ESTIMATED SIMILARITY" << endl;
-    cout << "==================================================" << endl << endl;
+
+    #ifdef USE_GPU
+    cout << "SIMILARIDADE DE COSSENO vs SIMILARIDADE ESTIMADA SUPERBIT VERSAO CUDA" << endl;
+    cout << "=====================================================================" << endl << endl;
+    GPU* gpu = new GPU;
+    #else
+    cout << "SIMILARIDADE DE COSSENO vs SIMILARIDADE ESTIMADA SUPERBIT" << endl;
+    cout << "=========================================================" << endl << endl;
+    #endif
 
     v1 = new double[ARRAY_SIZE];
     v2 = new double[ARRAY_SIZE];
@@ -30,11 +37,12 @@ int main() {
     v1[9] = 912.0;
     v2[8] = 0.0;
 
-    cout << "V1 array" << endl;
+    cout << "Vetor V1:" << endl;
     Array::show(v1, ARRAY_SIZE);
 
-    cout << "V2 array" << endl;
+    cout << endl << "Vetor V2:" << endl;
     Array::show(v2, ARRAY_SIZE);
+    cout << endl;
 
     Superbit* sb = new Superbit(ARRAY_SIZE, ARRAY_SIZE, 10000 / ARRAY_SIZE);
     bool* s1 = sb->computeSignature(v1);
@@ -42,8 +50,14 @@ int main() {
     double esti_similarity = sb->similarity(s1, s2);
     double real_similarity = Math::consineSimilarity(v1, v2, ARRAY_SIZE);
 
-    cout << fixed << setprecision(7) << "Estimated similarity: " << esti_similarity << endl;
-    cout << fixed << setprecision(7) << "Real similarity: " << real_similarity << endl;
+    cout << fixed << setprecision(7) << "Similaridade estimada: " << esti_similarity << endl;
+    cout << fixed << setprecision(7) << "Similaridade real: " << real_similarity << endl;
+
+
+    #ifdef USE_GPU
+    delete gpu;
+    #endif
+    
 
     delete v1;
     delete v2;

@@ -53,8 +53,8 @@ void Hashtable::showCounts() {
     std::cout << std::endl;
 }
 
-void Hashtable::showIds(int hash) {
-    for (long i = 0; i < items[hash].count; i++)
-        std::cout << items[hash].index[i] << " ";
+void Hashtable::showIds(int key) {
+    for (long i = 0; i < items[key].count; i++)
+        std::cout << items[key].index[i] << " ";
     std::cout << std::endl;
 }

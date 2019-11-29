@@ -22,6 +22,14 @@ class Superbit {
 
         long hyperp_length;
 
+
+        double* d_hyperplanes;
+        long* d_hyperp_length;
+        double* d_v;
+        bool* d_sig;
+        int* d_dimensions;
+
+
         void buildHyperplanes(hpbuilder_t *builderdata);
     public:
         Superbit(const int _dimensions, int _superbit, long _length, int _seed);

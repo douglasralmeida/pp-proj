@@ -19,18 +19,14 @@ int main() {
 
     cout << "Gerando tabela hash..." << endl;
     for (long i = 0; i < COUNT; i++) {
-        int* r = ht->getItem(i);
-        for (long j = 0; j < HASH_SIZE; j++)
-          r[j] = j;
+        int* r = new int[HASH_SIZE];
+        r[0] = i;
+        for (long j = 0; j < 4; j++)
+          ht->setHash(i, r);
     }
 
-    cout << "Exibindo tabela hash..." << endl;
-    for (long i = 0; i < COUNT; i++) {
-        int* r = ht->getItem(i);
-        for (long j = 0; j < HASH_SIZE; j++)
-          cout << r[j] <<  ' ';
-        cout << endl;
-    }
+    cout << "Distribuicao da tabela hash:" << endl << endl;
+    ht->showCounts();
     
     cout << endl << "Finalizando..." << endl;
     delete ht;

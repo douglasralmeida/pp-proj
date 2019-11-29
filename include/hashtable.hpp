@@ -36,7 +36,7 @@ class Hashtable {
 
         void showCounts();
 
-        void showIds(int hash);
+        void showIds(int key);
 };
 
 #endif //HASHTABLE_HPP
