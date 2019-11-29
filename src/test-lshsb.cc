@@ -44,7 +44,9 @@ int main() {
         for (int j = 0; j < ARRAY_SIZE; j++)
           entradas[i][j] = distribution(generator);  
     }
-    int* tables = new int[buckets]{0};
+    int* tables = new int[buckets];
+    for (int i = 0; i < buckets; i++)
+        tables[i] = 0;
 
     //começa a medir o tempo aqui
     clock_t begin = clock();
