@@ -9,6 +9,10 @@
 #include "array.hpp"
 #include "superbit.hpp"
 
+#ifdef USE_GPU
+#include "gpu.hpp"
+#endif
+
 #define ARRAY_SIZE 10
 
 using namespace std;

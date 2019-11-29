@@ -11,6 +11,10 @@
 #include "array.hpp"
 #include "lsh_superbit.hpp"
 
+#ifdef USE_GPU
+#include "gpu.hpp"
+#endif
+
 #define ARRAY_SIZE 100
 #define ARRAY_COUNT 100000
 //define ARRAY_SIZE 3

@@ -6,6 +6,8 @@
 #ifndef GPU_HPP
 #define GPU_HPP
 
+#include <cuda_runtime_api.h>
+
 class GPU {
     protected:
         cudaDeviceProp deviceProp;
