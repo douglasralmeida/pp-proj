@@ -17,9 +17,12 @@ typedef struct hpbuilder_s {
 class Superbit {
     private:
         double* hyperplanes;
-
         int dimensions;
-
+        double* d_hyperplanes;
+        long* d_hyperp_length;
+        double* d_v;
+        bool* d_sig;
+        int* d_dimensions;
         long hyperp_length;
 
         void buildHyperplanes(hpbuilder_t *builderdata);

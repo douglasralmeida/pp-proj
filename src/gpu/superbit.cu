@@ -3,11 +3,6 @@
 ** Algoritmo Superbit - Implementação em CPU
 */
 
-#include <curand.h>
-#include <curand_kernel.h>
-
-#include <cstdio>
-
 #include <cmath>
 #include <random>
 #include <ctime>
@@ -15,19 +10,15 @@
 #include "math.hpp"
 #include "superbit.hpp"
 
-#define THREADS 64
-#define BLOCKS 64
+#define THREADS_PER_BLOCK 512
 
-__global__ void cuda_rand_init(unsigned long seed, curandState* state) {
-    int id = threadIdx.x + blockIdx.x * blockDim.x;
+__global__ void cudaComputeSignature(double* hyperplanes, double* v, int* dimensions, bool* sig, long* hyperp_length) {
+    long pos = (threadIdx.x + blockDim.x * blockIdx.x) * (*dimensions);
+    double sum = 0.0;
 
-    curand_init(seed, id, 0, &state[id]);
-}
-
-__global__ void cuda_distribuition(curandState* state, double* vector) {
-    int id = threadIdx.x + blockIdx.x * blockDim.x;
-
-    vector[id] = curand_normal_double(&state[id]);
+    for (int i=0; i < (*dimensions); i++)
+        sum += hyperplanes[i+pos] * v[i];}
+    sig[threadIdx.x + blockDim.x * blockIdx.x] = (sum>=0);
 }
 
 Superbit::Superbit(const int _dimensions, int _superbit, long _length, int _seed):dimensions(_dimensions) {
@@ -46,6 +37,15 @@ Superbit::Superbit(const int _dimensions, int _superbit, long _length, int _seed
     builderdata.w = hyperplanes;
     buildHyperplanes(&builderdata);
     Array::dealloc2d(&builderdata.v);
+
+    cudaMalloc(&d_v,sizeof(double)*dimensions);
+    cudaMalloc(&d_sig,sizeof(bool)*hyperp_length);
+    cudaMalloc(&d_hyperplanes,sizeof(double)*(hyperp_length*dimensions));
+    cudaMalloc(&d_hyperp_length,sizeof(long));
+    cudaMalloc(&d_dimensions,sizeof(int));
+    cudaMemcpy(d_hyperp_length,&hyperp_length,sizeof(long),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_dimensions,&dimensions,sizeof(int),cudaMemcpyHostToDevice);
+    cudaMemcpy(d_hyperplanes,hyperplanes,sizeof(double)*(hyperp_length * dimensions),cudaMemcpyHostToDevice);
 }
 
 Superbit::Superbit(const int _dimensions, int _superbit, long _length):
@@ -57,27 +57,17 @@ Superbit::~Superbit() {
 
 void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
     long i, j, k;
-    curandState* devStates;
+    std::default_random_engine generator(builderdata->seed);
+    std::normal_distribution<long double> distribution(0.0, 1.0);
     double* v = builderdata->v;
     double* w = builderdata->w;
 
-    int PASSO = THREADS*BLOCKS;
-
-    cudaMalloc((void**)&devStates, THREADS * BLOCKS * sizeof(curandState));
-    cuda_rand_init<<<BLOCKS, THREADS>>>(builderdata->seed, devStates);
-    for (i = 0; i < hyperp_length; i += PASSO) {
-        cuda_distribuition<<<BLOCKS, THREADS>>>(devStates, v);
+    for (i = 0; i < hyperp_length; i++) {
+        long x = i * dimensions;
+        for (j = 0; j < dimensions; j++)
+            v[x + j] = distribution(generator);
+        Math::normalize(v + x, dimensions);
     }
-
-    //Normaliza
-
-    //double rV;
-    //cudaMemcpy(&rV, v, sizeof(double), cudaMemcpyDeviceToHost);
-    //std::cout << rV << endl;
-
-    cudaFree(v);
-    exit(0);
-
 
     for (i = 0; i <= (builderdata->length-1); i++) {
         for (j = 1; j <= builderdata->superbit; j++) {
@@ -98,13 +88,14 @@ void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {
 }
 
 bool* Superbit::computeSignature(double* v) {
-    long pos;
     bool* sig = new bool[hyperp_length];
+    bool* sigaux = new bool[hyperp_length];
+    
+    int NUM_OF_BLOCKS = (hyperp_length + THREADS_PER_BLOCK - 1)/THREADS_PER_BLOCK;
 
-    for (long i = 0; i < hyperp_length; i++) {
-        pos = i * dimensions;
-        sig[i] = (Math::dotProduct(hyperplanes + pos, v, dimensions) >= 0.0);
-    }
+    cudaMemcpy(d_v,v,sizeof(double)*dimensions,cudaMemcpyHostToDevice);
+    cudaComputeSignature<<<NUM_OF_BLOCKS,THREADS_PER_BLOCK>>>(d_hyperplanes,d_v,d_dimensions,d_sig,d_hyperp_length);
+    cudaMemcpy(sig,d_sig,sizeof(bool)*hyperp_length,cudaMemcpyDeviceToHost);
 
     return sig;
 }
