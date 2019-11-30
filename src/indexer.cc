@@ -5,16 +5,18 @@
 
 #include <iostream>
 #include <cstdlib>
+#include "timer.hpp"
 #include "dataset.hpp"
-
 
 using namespace std;
 
 void help(const char* execname) {
-    cout << "Wrong command syntax. Usage: " << execname << " #datasetfile" << endl;
+    cout << "Sintaxe de comando invalida. Use: " << execname << " #datasetfile" << endl;
 }
 
 int main(int argc, const char* argv[]) {
+    int buckets = 100;
+    Timer* timer;
     Dataset* dataset;
 
     //Analisa os parametros da linha de comando
@@ -23,6 +25,7 @@ int main(int argc, const char* argv[]) {
         exit(EXIT_FAILURE);
     }
     const char* datafile = argv[1];
+    timer = new Timer();
 
     //Carrega os dados para a memória
     cout << "Carregando conjunto de dados..." << endl;
@@ -30,11 +33,17 @@ int main(int argc, const char* argv[]) {
 
     //Gera o índice LSH
     cout << "Gerando indice de consulta..." << endl;
-    dataset->computeHashTables(2, 2);
+    cout << "Indice com " << buckets << " entradas.";
+    timer->begin();
+    dataset->computeHashTables(2, buckets);
+    timer->end();
+
+    timer->show();
 
     //Limpa a memória
     cout << "Encerrando..." << endl;
     delete dataset;
+    delete timer;
 
     exit(EXIT_SUCCESS);
 }

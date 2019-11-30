@@ -59,17 +59,19 @@ int main() {
 
     LSH_Superbit* lsh = new LSH_Superbit(buckets, stages, ARRAY_SIZE);
     cout << "Processando entradas..." << endl;
-    for (long i = 0; i < ARRAY_COUNT; i++) {
+    for (long i = 0; i < ARRAY_COUNT; i++)
         lsh->hash(i, entradas[i]);
-        delete[] entradas[i];
-    }
 
     //termina de medir aqui
     timer->end();
 
     cout << endl << "Distribuicao: ";
     lsh->showCounts();
+    
+    std::cout << std::endl << "Tempo gasto: ";
     timer->show();
+    std:cout << std::endl << std::endl;
+    
     cout << endl << "Finalizando..." << endl;
 
 
@@ -77,7 +79,8 @@ int main() {
     delete gpu;
     #endif
 
-    
+    for (long i = 0; i < ARRAY_COUNT; i++)
+        delete[] entradas[i];
     delete[] tables;
     delete[] entradas;
     delete lsh;

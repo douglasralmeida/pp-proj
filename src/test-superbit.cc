@@ -60,7 +60,10 @@ int main() {
 
     cout << fixed << setprecision(7) << "Similaridade estimada: " << esti_similarity << endl;
     cout << fixed << setprecision(7) << "Similaridade real: " << real_similarity << endl;
+
+    std::cout << std::endl << "Tempo gasto: ";
     timer->show();
+    std:cout << std::endl << std::endl;
 
     #ifdef USE_GPU
     delete gpu;

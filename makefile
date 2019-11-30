@@ -26,10 +26,14 @@ TESTLSHFILES=hashtable.o timer.o lsh.o superbit.o lsh_superbit.o dataset.o test-
 TESTCUDASBFILES=gpu.ou timer.o superbit.ou test-superbit.oc
 TESTCUDASLHFILES=gpu.ou timer.o hashtable.o lsh.o superbit.ou lsh_superbit.o dataset.o test-lshsb.oc
 
-ALLFILES=gpu.o timer.o dataset.o hashtable.o lsh.o superbit.o superbit.ou lsh_superbit.o test-array.o test-hashtable.o test-superbit.o test-superbit.oc test-dataset.o test-lshsb.o test-lshsb.oc indexer.o
+TESTSFILES=timer.o hashtable.o lsh.o superbit.o lsh_superbit.o tests.o
+TESTSCUDAFILES=gpu.ou timer.o hashtable.o lsh.o superbit.ou lsh_superbit.o tests.oc
+
+ALLFILES=gpu.o timer.o dataset.o hashtable.o lsh.o superbit.o superbit.ou lsh_superbit.o test-array.o test-hashtable.o test-superbit.o test-superbit.oc test-dataset.o test-lshsb.o test-lshsb.oc indexer.o tests.o tests.oc
 ALLOBJECTS=$(addprefix $(OBJDIR)/, $(ALLFILES))
 
 ARGS_INDEXER=data/dataset.dat
+ARGS_TESTS=4 10 3
 
 BINDIR=bin
 OBJDIR=obj
@@ -83,15 +87,19 @@ memcheck:
 run: $(PROJECTNAME)
 	./$(BINDIR)/$(PROJECTNAME) $(ARGS_INDEXER)
 
-test: $(addprefix $(OBJDIR)/, $(TESTFILES))
+test: $(addprefix $(OBJDIR)/, $(TESTSFILES))
 	@echo
 	@echo Gerando executavel...
 	$(CXX) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LDLIBS)
+	@echo B  D  S  T
+	./$(BINDIR)/$@ $(ARGS_TESTS)
 
-test-cuda: $(addprefix $(OBJDIR)/, $(TESTFILES))
+test-cuda: $(addprefix $(OBJDIR)/, $(TESTSCUDAFILES))
 	@echo
 	@echo Gerando executavel...
 	$(CXX) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(CUDALIBDIRS) $(CUDALDLIBS)
+	@echo B  D  S  T
+	./$(BINDIR)/$@ $(ARGS_TESTS)
 
 test-array: $(addprefix $(OBJDIR)/, $(TESTARFILES))
 	@echo

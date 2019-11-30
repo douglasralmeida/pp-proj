@@ -22,5 +22,5 @@ void Timer::end() {
 void Timer::show() {
     double elapsed_secs = double(endtime - starttime) / CLOCKS_PER_SEC;
 
-    std::cout << std::endl << "Tempo gasto: " << elapsed_secs << "s" << std::endl << std::endl;
+    std::cout << elapsed_secs << "s";
 }
