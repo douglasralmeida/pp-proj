@@ -37,7 +37,6 @@ void LSH::hashSign(long id, bool* attributes, long n) {
     }
     for (i = 0; i < stages; i++)
         r[i] = (acc[i] % buckets);
-    
     table->setHash(id, r);
 
     delete[] acc;

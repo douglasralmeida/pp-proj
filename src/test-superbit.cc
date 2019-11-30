@@ -62,7 +62,8 @@ int main() {
     delete gpu;
     #endif
 
-
+    delete[] s1;
+    delete[] s2;
     delete[] v1;
     delete[] v2;
     delete sb;
