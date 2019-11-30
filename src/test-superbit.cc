@@ -7,6 +7,7 @@
 #include <iostream>
 #include "math.hpp"
 #include "array.hpp"
+#include "timer.hpp"
 #include "superbit.hpp"
 
 #ifdef USE_GPU
@@ -20,6 +21,7 @@ using namespace std;
 int main() {
     double* v1;
     double* v2;
+    Timer* timer = new Timer;
 
 
     #ifdef USE_GPU
@@ -48,15 +50,17 @@ int main() {
     Array::show(v2, ARRAY_SIZE);
     cout << endl;
 
+    timer->begin();
     Superbit* sb = new Superbit(ARRAY_SIZE, ARRAY_SIZE, 10000 / ARRAY_SIZE);
     bool* s1 = sb->computeSignature(v1);
     bool* s2 = sb->computeSignature(v2);
     double esti_similarity = sb->similarity(s1, s2);
+    timer->end();
     double real_similarity = Math::consineSimilarity(v1, v2, ARRAY_SIZE);
 
     cout << fixed << setprecision(7) << "Similaridade estimada: " << esti_similarity << endl;
     cout << fixed << setprecision(7) << "Similaridade real: " << real_similarity << endl;
-
+    timer->show();
 
     #ifdef USE_GPU
     delete gpu;
@@ -67,6 +71,7 @@ int main() {
     delete[] v1;
     delete[] v2;
     delete sb;
+    delete timer;
 
 	exit(EXIT_SUCCESS);
 }

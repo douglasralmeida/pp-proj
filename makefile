@@ -20,13 +20,13 @@ CUDADEFS=-DUSE_GPU
 
 TESTARFILES=test-array.o
 TESTHTFILES=hashtable.o test-hashtable.o
-TESTSBFILES=superbit.o test-superbit.o
+TESTSBFILES=timer.o superbit.o test-superbit.o
 TESTDSFILES=hashtable.o lsh.o superbit.o lsh_superbit.o dataset.o test-dataset.o
-TESTLSHFILES=hashtable.o lsh.o superbit.o lsh_superbit.o dataset.o test-lshsb.o
-TESTCUDASBFILES=gpu.ou superbit.ou test-superbit.oc
-TESTCUDASLHFILES=gpu.ou hashtable.o lsh.o superbit.ou lsh_superbit.o dataset.o test-lshsb.oc
+TESTLSHFILES=hashtable.o timer.o lsh.o superbit.o lsh_superbit.o dataset.o test-lshsb.o
+TESTCUDASBFILES=gpu.ou timer.o superbit.ou test-superbit.oc
+TESTCUDASLHFILES=gpu.ou timer.o hashtable.o lsh.o superbit.ou lsh_superbit.o dataset.o test-lshsb.oc
 
-ALLFILES=gpu.o dataset.o hashtable.o lsh.o superbit.o superbit.ou lsh_superbit.o test-array.o test-hashtable.o test-superbit.o test-superbit.oc test-dataset.o test-lshsb.o test-lshsb.oc indexer.o
+ALLFILES=gpu.o timer.o dataset.o hashtable.o lsh.o superbit.o superbit.ou lsh_superbit.o test-array.o test-hashtable.o test-superbit.o test-superbit.oc test-dataset.o test-lshsb.o test-lshsb.oc indexer.o
 ALLOBJECTS=$(addprefix $(OBJDIR)/, $(ALLFILES))
 
 ARGS_INDEXER=data/dataset.dat

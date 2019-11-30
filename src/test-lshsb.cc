@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 #include <random>
+#include "timer.hpp"
 #include "math.hpp"
 #include "array.hpp"
 #include "lsh_superbit.hpp"
@@ -28,6 +29,7 @@ int main() {
     double** entradas;
     std::default_random_engine generator(time(NULL));
     std::normal_distribution<long double> distribution(0.0, 1.0);
+    Timer* timer = new Timer;
 
 
     #ifdef USE_GPU
@@ -53,7 +55,7 @@ int main() {
         tables[i] = 0;
 
     //começa a medir o tempo aqui
-    clock_t begin = clock();
+    timer->begin();
 
     LSH_Superbit* lsh = new LSH_Superbit(buckets, stages, ARRAY_SIZE);
     cout << "Processando entradas..." << endl;
@@ -63,12 +65,11 @@ int main() {
     }
 
     //termina de medir aqui
-    clock_t end = clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    timer->end();
 
     cout << endl << "Distribuicao: ";
     lsh->showCounts();
-    cout << endl << "Tempo gasto: " << elapsed_secs << "s" << endl << endl;
+    timer->show();
     cout << endl << "Finalizando..." << endl;
 
 
@@ -80,5 +81,6 @@ int main() {
     delete[] tables;
     delete[] entradas;
     delete lsh;
+    delete timer;
 	exit(EXIT_SUCCESS);
 }

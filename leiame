@@ -11,7 +11,7 @@ make clean - Excluir arquivos e objetos compilados.
 
 make run - Compila e executa a versao para CPU.
 
-make cuda - Compila e executa a versao para CPU.
+make cuda - Compila e executa a versao para GPU.
 
 make test - Roda testes de temporizacao (a construir).
 
