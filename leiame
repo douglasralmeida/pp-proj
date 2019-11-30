@@ -30,3 +30,13 @@ make test-lsh - Testa o LSH Superbit.
 makte test-cudalsh - Testa o LSH Superbit para CUDA.
 
 make test-dataset - Testa o objeto dataset.
+
+
+Programas disponiveis
+./test B S D - Teste com dados aleatorios de tamanho variavel
+B - Numero de buckets
+S - Quantidade de vetores
+D - Quantidade de dimensoes
+
+./indexer DATASETFILE - Teste com um arquivo de dataset
+DATASETFILE - Localizacao do arquivo dataset
