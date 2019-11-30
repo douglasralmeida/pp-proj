@@ -61,10 +61,10 @@ int main() {
     #ifdef USE_GPU
     delete gpu;
     #endif
-    
 
-    delete v1;
-    delete v2;
+
+    delete[] v1;
+    delete[] v2;
     delete sb;
 
 	exit(EXIT_SUCCESS);

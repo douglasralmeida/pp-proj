@@ -54,6 +54,11 @@ Superbit::Superbit(const int _dimensions, int _superbit, long _length):
 
 Superbit::~Superbit() {
     Array::dealloc2d(&hyperplanes);
+    cudaFree(d_V);
+    cudaFree(d_sig);
+    cudaFree(d_hyperplanes);
+    cudaFree(d_hyperp_length);
+    cudaFree(d_dimensions);
 }
 
 void Superbit::buildHyperplanes(hpbuilder_t *builderdata) {

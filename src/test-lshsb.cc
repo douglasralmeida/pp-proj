@@ -41,7 +41,7 @@ int main() {
 
 
     cout << "Gerando entradas aleatorias..." << endl;
-    cout << "Matriz " << ARRAY_SIZE << "x" << ARRAY_COUNT << "." << endl;
+    cout << "Matriz " << ARRAY_COUNT << "x" << ARRAY_SIZE << "." << endl;
     entradas = new double*[ARRAY_COUNT];
     for (long i = 0; i < ARRAY_COUNT; i++) {
         entradas[i] = new double[ARRAY_SIZE];
@@ -59,7 +59,7 @@ int main() {
     cout << "Processando entradas..." << endl;
     for (long i = 0; i < ARRAY_COUNT; i++) {
         lsh->hash(i, entradas[i]);
-        delete entradas[i];
+        delete[] entradas[i];
     }
 
     //termina de medir aqui
@@ -77,8 +77,8 @@ int main() {
     #endif
 
     
-    delete tables;
-    delete entradas;
+    delete[] tables;
+    delete[] entradas;
     delete lsh;
 	exit(EXIT_SUCCESS);
 }

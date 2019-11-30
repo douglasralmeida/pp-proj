@@ -69,13 +69,16 @@ $(CUDAPROJECTNAME): $(addprefix $(OBJDIR)/, $(CUDAPROJFILES))
 clean:
 	@echo
 	@echo Excluindo executavel...
-	del $(BINDIR)\$(PROJECTNAME)
-	del $(BINDIR)\$(CUDAPROJECTNAME)
+	rm $(BINDIR)\$(PROJECTNAME)
+	rm $(BINDIR)\$(CUDAPROJECTNAME)
 	@echo Excluindo objetos...
-	del $(ALLOBJECTS)
+	rm $(ALLOBJECTS)
 
 cuda: $(CUDAPROJECTNAME)
 	./$(BINDIR)/$(CUDAPROJECTNAME) $(ARGS_INDEXER)
+
+memcheck: 
+	valgrind -v --leak-check=full --track-origins=yes --show-leak-kinds=all $(BINDIR)/$(EXE)
 
 run: $(PROJECTNAME)
 	./$(BINDIR)/$(PROJECTNAME) $(ARGS_INDEXER)
