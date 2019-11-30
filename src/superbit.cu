@@ -10,16 +10,20 @@
 #include "math.hpp"
 #include "superbit.hpp"
 
-#define THREADS_PER_BLOCK 512
+#define THREADS_PER_BLOCK 1024
 
 __global__ void cudaComputeSignature(double* hyperplanes, double* v, int* dimensions, bool* sig, long* hyperp_length) {
-    int d_dimensions = *dimensions;
-    long pos = (threadIdx.x + blockDim.x * blockIdx.x) * d_dimensions;
-    double sum = 0.0;
+    long tid = threadIdx.x + blockDim.x * blockIdx.x;
 
-    for (int i = 0; i < d_dimensions; i++)
-        sum += hyperplanes[i+pos] * v[i];
-    sig[threadIdx.x + blockDim.x * blockIdx.x] = (sum>=0);
+    if (tid < *hyperp_length) {
+        int d_dimensions = *dimensions;
+        long pos = tid * d_dimensions;
+        double sum = 0.0;
+
+        for (int i = 0; i < d_dimensions; i++)
+            sum += hyperplanes[i+pos] * v[i];
+        sig[tid] = (sum>=0);
+    }
 }
 
 Superbit::Superbit(const int _dimensions, int _superbit, long _length, int _seed):dimensions(_dimensions) {
