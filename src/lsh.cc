@@ -17,8 +17,7 @@ LSH::LSH(int nbuckets, int nstages) {
 }
 
 LSH::~LSH() {
-    if (table)
-        delete table;
+    delete table;
 }
 
 void LSH::hashSign(long id, bool* attributes, long n) {

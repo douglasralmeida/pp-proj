@@ -24,7 +24,7 @@ Hashtable::Hashtable(int _buckets, int _hashsize) {
 Hashtable::~Hashtable() {
     for (int i = 0; i < length; i++) {
         delete[] items[i].index;
-        if (items[i].hash)
+        if (items[i].hash != NULL)
             delete[] items[i].hash;
     }
     delete[] items;
@@ -35,6 +35,8 @@ void Hashtable::setHash(int key, int* hash) {
 
     if (items[idx].count == 0)
        items[idx].hash = hash;
+    else
+        delete[] hash;
     items[idx].index[items[idx].count] = key;
     items[idx].count++;
 }

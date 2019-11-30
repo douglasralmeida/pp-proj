@@ -69,10 +69,10 @@ $(CUDAPROJECTNAME): $(addprefix $(OBJDIR)/, $(CUDAPROJFILES))
 clean:
 	@echo
 	@echo Excluindo executavel...
-	rm $(BINDIR)\$(PROJECTNAME)
-	rm $(BINDIR)\$(CUDAPROJECTNAME)
+	rm -f $(BINDIR)\$(PROJECTNAME)
+	rm -f $(BINDIR)\$(CUDAPROJECTNAME)
 	@echo Excluindo objetos...
-	rm $(ALLOBJECTS)
+	rm -f $(ALLOBJECTS)
 
 cuda: $(CUDAPROJECTNAME)
 	./$(BINDIR)/$(CUDAPROJECTNAME) $(ARGS_INDEXER)
