@@ -47,4 +47,6 @@ void LSH_Superbit::hash(long id, double* attributes) {
     long siglen = sb->getSignatureLength();
 
     hashSign(id, sig, siglen);
+
+    delete[] sig;
 }
