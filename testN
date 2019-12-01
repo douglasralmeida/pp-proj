@@ -11,9 +11,11 @@ make test
 ./bin/test 300 10000 10
 ./bin/test 400 10000 10
 ./bin/test 500 10000 10
+./bin/test 1000 10000 10
 
 ./bin/test 100 10000 10
 ./bin/test 100 10000 50
 ./bin/test 100 10000 100
 ./bin/test 100 10000 150
 ./bin/test 100 10000 200
+./bin/test 100 10000 500
