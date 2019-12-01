@@ -12,8 +12,8 @@ make test-cuda-cuda
 ./bin/test-cuda 400 10000 10
 ./bin/test-cuda 500 10000 10
 
-./bin/test-cuda 10 10000 10
-./bin/test-cuda 10 10000 50
-./bin/test-cuda 10 10000 100
-./bin/test-cuda 10 10000 150
-./bin/test-cuda 10 10000 200
+./bin/test-cuda 100 10000 10
+./bin/test-cuda 100 10000 50
+./bin/test-cuda 100 10000 100
+./bin/test-cuda 100 10000 150
+./bin/test-cuda 100 10000 200
