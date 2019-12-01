@@ -8,6 +8,11 @@
 #include "timer.hpp"
 #include "dataset.hpp"
 
+#ifdef USE_GPU
+#include "gpu.hpp"
+#endif
+
+
 using namespace std;
 
 void help(const char* execname) {
@@ -24,6 +29,11 @@ int main(int argc, const char* argv[]) {
         help(argv[0]);
         exit(EXIT_FAILURE);
     }
+
+    #ifdef USE_GPU
+    GPU* gpu = new GPU(true);
+    #endif
+
     const char* datafile = argv[1];
     timer = new Timer();
 
@@ -38,12 +48,18 @@ int main(int argc, const char* argv[]) {
     dataset->computeHashTables(3, buckets);
     timer->end();
 
+    cout << "Tempo gasto: ";
     timer->show();
+    cout << endl;
 
     //Limpa a memória
     cout << "Encerrando..." << endl;
     delete dataset;
     delete timer;
+
+    #ifdef USE_GPU
+    delete gpu;
+    #endif
 
     exit(EXIT_SUCCESS);
 }

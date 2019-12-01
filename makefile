@@ -15,7 +15,7 @@ CUDALDLIBS=-lcudart
 NVCC=$(CUDA_PATH)/bin/nvcc -ccbin $(HOST_COMPILER)
 NVCCFLAGS=-std=c++11 -m64 -g -G -c
 BUILD_TYPE=debug
-CUDAPROJFILES=gpu.o timer.o dataset.o hashtable.o lsh.o superbit.o lsh_superbit.o indexer.o
+CUDAPROJFILES=gpu.ou timer.o dataset.o hashtable.o lsh.o superbit.o lsh_superbit.ou indexer.oc
 CUDADEFS=-DUSE_GPU
 
 TESTARFILES=test-array.o
