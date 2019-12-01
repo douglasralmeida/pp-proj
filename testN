@@ -1,21 +1,28 @@
 make test
-./bin/test 100 10000 10
-./bin/test 100 50000 10
-./bin/test 100 100000 10
-./bin/test 100 150000 10
-./bin/test 100 200000 10
-./bin/test 100 250000 10
+./bin/test 100 10 10000 10
+./bin/test 100 10 50000 10
+./bin/test 100 10 100000 10
+./bin/test 100 10 150000 10
+./bin/test 100 10 200000 10
+./bin/test 100 10 250000 10
 
-./bin/test 100 10000 10
-./bin/test 200 10000 10
-./bin/test 300 10000 10
-./bin/test 400 10000 10
-./bin/test 500 10000 10
-./bin/test 1000 10000 10
+./bin/test 100 10 10000 10
+./bin/test 200 10 10000 10
+./bin/test 300 10 10000 10
+./bin/test 400 10 10000 10
+./bin/test 500 10 10000 10
+./bin/test 1000 10 10000 10
 
-./bin/test 100 10000 10
-./bin/test 100 10000 50
-./bin/test 100 10000 100
-./bin/test 100 10000 150
-./bin/test 100 10000 200
-./bin/test 100 10000 500
+./bin/test 10 100 10000 10
+./bin/test 10 200 10000 50
+./bin/test 10 300 10000 100
+./bin/test 10 400 10000 150
+./bin/test 10 500 10000 200
+./bin/test 10 1000 10000 500
+
+./bin/test 100 10 10000 10
+./bin/test 100 10 10000 50
+./bin/test 100 10 10000 100
+./bin/test 100 10 10000 150
+./bin/test 100 10 10000 200
+./bin/test 100 10 10000 500

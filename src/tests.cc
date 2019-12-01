@@ -17,11 +17,11 @@
 using namespace std;
 
 void help(const char* execname) {
-    cout << "Sintaxe de comando invalida. Use: " << execname << " #numbuckets #numlines #dimensions" << endl;
+    cout << "Sintaxe de comando invalida. Use: " << execname << " #numbuckets #numstages #numlines #dimensions" << endl;
 }
 
 int main(int argc, const char* argv[]) {
-    int buckets, dimensions;
+    int buckets, dimensions, stages;
     long size;
     Timer* timer;
     double** entradas;
@@ -30,13 +30,14 @@ int main(int argc, const char* argv[]) {
 
 
     //Analisa os parametros da linha de comando
-    if (argc < 4) {
+    if (argc < 5) {
         help(argv[0]);
         exit(EXIT_FAILURE);
     }
     buckets = atoi(argv[1]);
-    size = atol(argv[2]);
-    dimensions = atoi(argv[3]);
+    stages = atoi(argv[2]);
+    size = atol(argv[3]);
+    dimensions = atoi(argv[4]);
     timer = new Timer();
 
     #ifdef USE_GPU
@@ -55,13 +56,13 @@ int main(int argc, const char* argv[]) {
     //Processa o índice LSH
     timer->begin();
 
-    LSH_Superbit* lsh = new LSH_Superbit(buckets, 10, dimensions);
+    LSH_Superbit* lsh = new LSH_Superbit(buckets, stages, dimensions);
     for (long i = 0; i < size; i++)
         lsh->hash(i, entradas[i]);
 
     //Tempo gasto
     timer->end();
-    cout << buckets << ' ' << dimensions << ' '<< size << ' ';
+    cout << buckets << ' ' << stages << ' ' << dimensions << ' '<< size << ' ';
     timer->show();
     cout << endl;
 
