@@ -63,6 +63,7 @@ int main(int argc, const char* argv[]) {
     timer->end();
     cout << buckets << ' ' << dimensions << ' '<< size << ' ';
     timer->show();
+    cout << endl;
 
     //Limpa a memória
     delete timer;
