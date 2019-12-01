@@ -14,7 +14,7 @@ class GPU {
 
         void exitWithFailure(cudaError_t error);
     public:
-        GPU();
+        GPU(bool silenceMode);
 
         ~GPU();
 };

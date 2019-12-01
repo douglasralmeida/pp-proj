@@ -12,20 +12,23 @@ using namespace std;
 //GPU com capacidade computacional 5.2
 #define TAM_BLOCO 32
 
-GPU::GPU() {
+GPU::GPU(bool silenceMode) {
     int count;
     cudaError_t error;
 
-    cout << "Inicializando GPU..." << endl;
+    if (!silenceMode)
+        cout << "Inicializando GPU..." << endl;
     cudaProfilerStart();
     error = cudaGetDeviceCount(&count);
     if (error != cudaSuccess)
         exitWithFailure(error);
-    cout << "Numero de dispositivos disponíveis: " << count << endl;
+    if (!silenceMode)
+        cout << "Numero de dispositivos disponíveis: " << count << endl;
     error = cudaGetDeviceProperties(&deviceProp, 0);
     if (error != cudaSuccess) 
         exitWithFailure(error);
-    cout << "Dispositivo 0 tem a capacidade computacional " << deviceProp.major << '.' << deviceProp.minor << endl;
+    if (!silenceMode)
+        cout << "Dispositivo 0 tem a capacidade computacional " << deviceProp.major << '.' << deviceProp.minor << endl;
 }
 
 GPU::~GPU() {

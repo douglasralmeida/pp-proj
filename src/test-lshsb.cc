@@ -35,7 +35,7 @@ int main() {
     #ifdef USE_GPU
     cout << "LSH SUPERBIT para CUDA" << endl;
     cout << "======================" << endl << endl;
-    GPU* gpu = new GPU;
+    GPU* gpu = new GPU(false);
     #else
     cout << "LSH SUPERBIT" << endl;
     cout << "============" << endl << endl;

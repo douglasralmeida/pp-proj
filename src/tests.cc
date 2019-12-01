@@ -40,7 +40,7 @@ int main(int argc, const char* argv[]) {
     timer = new Timer();
 
     #ifdef USE_GPU
-    GPU* gpu = new GPU;
+    GPU* gpu = new GPU(true);
     #endif
 
     //Gera entradas aleatórias

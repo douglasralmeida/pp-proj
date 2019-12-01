@@ -27,7 +27,7 @@ int main() {
     #ifdef USE_GPU
     cout << "SIMILARIDADE DE COSSENO vs SIMILARIDADE ESTIMADA SUPERBIT VERSAO CUDA" << endl;
     cout << "=====================================================================" << endl << endl;
-    GPU* gpu = new GPU;
+    GPU* gpu = new GPU(false);
     #else
     cout << "SIMILARIDADE DE COSSENO vs SIMILARIDADE ESTIMADA SUPERBIT" << endl;
     cout << "=========================================================" << endl << endl;
