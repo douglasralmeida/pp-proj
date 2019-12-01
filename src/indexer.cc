@@ -48,10 +48,6 @@ int main(int argc, const char* argv[]) {
     dataset->computeHashTables(3, buckets);
     timer->end();
 
-    cout << "Tempo gasto: ";
-    timer->show();
-    cout << endl;
-
     //Limpa a memória
     cout << "Encerrando..." << endl;
     delete dataset;
