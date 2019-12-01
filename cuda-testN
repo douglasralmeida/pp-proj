@@ -1,0 +1,28 @@
+make test-cuda
+./test-cuda 100 1000 10
+./test-cuda 100 5000 10
+./test-cuda 100 10000 10
+./test-cuda 100 20000 10
+./test-cuda 100 30000 10
+./test-cuda 100 40000 10
+./test-cuda 100 50000 10
+
+./test-cuda 10 10000 10
+./test-cuda 20 10000 10
+./test-cuda 30 10000 10
+./test-cuda 40 10000 10
+./test-cuda 50 10000 10
+./test-cuda 100 10000 10
+./test-cuda 150 10000 10
+./test-cuda 200 10000 10
+./test-cuda 250 10000 10
+
+./test-cuda 10 1000 5
+./test-cuda 10 1000 10
+./test-cuda 10 1000 15
+./test-cuda 10 1000 20
+./test-cuda 10 1000 30
+./test-cuda 10 1000 40
+./test-cuda 10 1000 50
+./test-cuda 10 1000 60
+./test-cuda 10 1000 70

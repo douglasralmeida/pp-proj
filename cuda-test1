@@ -1,0 +1,2 @@
+make test-cuda
+./test-cuda 4 30 6

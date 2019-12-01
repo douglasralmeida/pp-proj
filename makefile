@@ -91,15 +91,11 @@ test: $(addprefix $(OBJDIR)/, $(TESTSFILES))
 	@echo
 	@echo Gerando executavel...
 	$(CXX) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(LDLIBS)
-	@echo B  D  S  T
-	./$(BINDIR)/$@ $(ARGS_TESTS)
 
 test-cuda: $(addprefix $(OBJDIR)/, $(TESTSCUDAFILES))
 	@echo
 	@echo Gerando executavel...
 	$(CXX) $(LDFLAGS) -o $(BINDIR)/$@ $^ $(CUDALIBDIRS) $(CUDALDLIBS)
-	@echo B  D  S  T
-	./$(BINDIR)/$@ $(ARGS_TESTS)
 
 test-array: $(addprefix $(OBJDIR)/, $(TESTARFILES))
 	@echo
