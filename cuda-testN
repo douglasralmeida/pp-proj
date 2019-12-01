@@ -14,11 +14,11 @@ make test-cuda
 ./bin/test-cuda 1000 10 10000 10
 
 ./bin/test-cuda 10 100 10000 10
-./bin/test-cuda 10 200 10000 50
-./bin/test-cuda 10 300 10000 100
-./bin/test-cuda 10 400 10000 150
-./bin/test-cuda 10 500 10000 200
-./bin/test-cuda 10 1000 10000 500
+./bin/test-cuda 10 200 10000 10
+./bin/test-cuda 10 300 10000 10
+./bin/test-cuda 10 400 10000 10
+./bin/test-cuda 10 500 10000 10
+./bin/test-cuda 10 1000 10000 10
 
 ./bin/test-cuda 100 10 10000 10
 ./bin/test-cuda 100 10 10000 50
