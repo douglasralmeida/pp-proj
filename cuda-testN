@@ -1,4 +1,4 @@
-make test-cuda-cuda
+make test-cuda
 ./bin/test-cuda 100 10000 10
 ./bin/test-cuda 100 50000 10
 ./bin/test-cuda 100 100000 10
