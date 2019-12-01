@@ -62,7 +62,7 @@ int main(int argc, const char* argv[]) {
 
     //Tempo gasto
     timer->end();
-    cout << buckets << ' ' << stages << ' ' << dimensions << ' '<< size << ' ';
+    cout << buckets << ' ' << stages << ' ' << size << ' '<< dimensions << ' ';
     timer->show();
     cout << endl;
 
