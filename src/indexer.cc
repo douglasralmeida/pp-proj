@@ -43,10 +43,16 @@ int main(int argc, const char* argv[]) {
 
     //Gera o índice LSH
     cout << "Gerando indice de consulta..." << endl;
-    cout << "Indice com " << buckets << " entradas.";
+    cout << "Dataset com tamanho " << dataset->getLength() << "x" << dataset->getDimensions() << "." << endl;
+    cout << "Tabela hash com " << buckets << " entradas." << endl;
     timer->begin();
-    dataset->computeHashTables(4, buckets);
+    dataset->computeHashTables(50, buckets);
     timer->end();
+
+    //Tempo
+    cout << "Tempo gasto: ";
+    timer.show();
+    cout << endl;
 
     //Limpa a memória
     cout << "Encerrando..." << endl;
