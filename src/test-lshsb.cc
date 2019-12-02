@@ -56,7 +56,7 @@ int main() {
     timer->begin();
 
     LSH_Superbit* lsh = new LSH_Superbit(buckets, stages, ARRAY_SIZE);
-    cout << "Processando entradas..." << endl;
+    cout << "Processando " << ARRAY_COUNT << " entradas..." << endl;
     for (long i = 0; i < ARRAY_COUNT; i++)
         lsh->hash(i, entradas[i]);
 
