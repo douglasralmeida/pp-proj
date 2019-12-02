@@ -51,7 +51,7 @@ int main(int argc, const char* argv[]) {
 
     //Tempo
     cout << "Tempo gasto: ";
-    timer.show();
+    timer->show();
     cout << endl;
 
     //Limpa a memória
