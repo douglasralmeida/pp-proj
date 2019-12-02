@@ -27,6 +27,8 @@ makte test-cudalsh - Testa o LSH Superbit para CUDA.
 
 
 Programas disponiveis
+
+Avaliação do algoritmo
 ./bin/test B S L D - Teste com dados aleatorios de tamanho variavel
 B - Numero de buckets
 S - Numero de stages
@@ -39,8 +41,13 @@ S - Numero de stages
 L - Quantidade de vetores
 D - Quantidade de dimensoes
 
+Os resultados são impressos no formato #numbuckets #numstages #numvetores #dimensoes #tempogastoemsgundos
+
+Teste com dataset
 ./bin/indexer DATASETFILE - Teste com um arquivo de dataset
 DATASETFILE - Localizacao do arquivo dataset
 
 ./bin/indexer-cuda DATASETFILE - Teste com um arquivo de dataset
 DATASETFILE - Localizacao do arquivo dataset
+
+O dataset de imagens esta na subpasta data com o nome dataset.dat

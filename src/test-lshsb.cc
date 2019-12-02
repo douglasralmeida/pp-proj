@@ -16,16 +16,14 @@
 #include "gpu.hpp"
 #endif
 
-#define ARRAY_SIZE 100
-#define ARRAY_COUNT 100000
-//define ARRAY_SIZE 3
-//efine ARRAY_COUNT 100
+#define ARRAY_SIZE 3
+#define ARRAY_COUNT 100
 
 using namespace std;
 
 int main() {
-    int stages = 100; //2
-    int buckets = 100;//4
+    int stages = 2; 
+    int buckets = 4;
     double** entradas;
     std::default_random_engine generator(time(NULL));
     std::normal_distribution<long double> distribution(0.0, 1.0);
@@ -70,7 +68,7 @@ int main() {
     
     std::cout << std::endl << "Tempo gasto: ";
     timer->show();
-    std:cout << std::endl << std::endl;
+    std::cout << std::endl << std::endl;
     
     cout << endl << "Finalizando..." << endl;
 
