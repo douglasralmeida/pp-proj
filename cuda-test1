@@ -1,2 +1,0 @@
-make test-cuda
-./bin/test-cuda 4 3 30 6

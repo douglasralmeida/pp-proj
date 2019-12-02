@@ -45,7 +45,7 @@ int main(int argc, const char* argv[]) {
     cout << "Gerando indice de consulta..." << endl;
     cout << "Indice com " << buckets << " entradas.";
     timer->begin();
-    dataset->computeHashTables(3, buckets);
+    dataset->computeHashTables(4, buckets);
     timer->end();
 
     //Limpa a memória

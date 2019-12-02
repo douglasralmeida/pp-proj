@@ -1,25 +1,20 @@
 Projeto de Algoritmos - Instrucoes
 
 Para compilar em ambiente Linux, digite make.
-Para compilar em ambiente Windows, digite .\make.bat.
 
 Subcomandos make aceitaveis:
 
-make - Compila a versao para CPU e para GPU.
+make - Compila a versao para CPU e para GPU
 
-make clean - Excluir arquivos e objetos compilados.
+make clean - Excluir arquivos e objetos compilados
 
-make run - Compila e executa a versao para CPU.
+make run - Compila e executa a versao para CPU utilizando o dataset de imagens
 
-make cuda - Compila e executa a versao para GPU.
+make cuda - Compila e executa a versao para GPU utilizando o dataset de imagens
 
-make test - Roda testes de temporizacao (a construir).
+make test - Compila o programa de testes utilizado na avaliação
 
-make test-cuda - Roda testes de temporizacao da versao CUDA (a construir).
-
-make test-array - Testa o objeto Array.
-
-make test-hashtable - Testa o objeto Tabela de Hashes.
+make test-cuda - Compila o programa de testes CUDA utilizado na avaliação
 
 make test-sb - Testa o algoritmo Superbit.
 
@@ -29,15 +24,23 @@ make test-lsh - Testa o LSH Superbit.
 
 makte test-cudalsh - Testa o LSH Superbit para CUDA.
 
-make test-dataset - Testa o objeto dataset.
 
 
 Programas disponiveis
-./test B S L D - Teste com dados aleatorios de tamanho variavel
+./bin/test B S L D - Teste com dados aleatorios de tamanho variavel
 B - Numero de buckets
 S - Numero de stages
 L - Quantidade de vetores
 D - Quantidade de dimensoes
 
-./indexer DATASETFILE - Teste com um arquivo de dataset
+./bin/test-cuda B S L D - Teste com dados aleatorios de tamanho variavel no CUDA
+B - Numero de buckets
+S - Numero de stages
+L - Quantidade de vetores
+D - Quantidade de dimensoes
+
+./bin/indexer DATASETFILE - Teste com um arquivo de dataset
+DATASETFILE - Localizacao do arquivo dataset
+
+./bin/indexer-cuda DATASETFILE - Teste com um arquivo de dataset
 DATASETFILE - Localizacao do arquivo dataset

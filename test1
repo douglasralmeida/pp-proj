@@ -1,2 +1,0 @@
-make test
-./bin/test 4 3 30 6
