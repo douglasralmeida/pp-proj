@@ -13,10 +13,12 @@ using namespace std;
 
 typedef double Datatype;
 
+// Carrega um dado do arquivo para a memória
 inline void datatype_fscanf(FILE* f, Datatype* item) {
     fscanf(f, "%lf", item);
 }
 
+// Exibe um dado na tela
 inline void datatype_show(Datatype* item) {
     cout << fixed << setprecision(2) <<  *item << " ";
 }

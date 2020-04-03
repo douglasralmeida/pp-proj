@@ -8,6 +8,7 @@
 
 #include "datatype.hpp"
 
+// Classe para encapsular o tipo de dado utilizado no dataset
 class Dataitem {
     private:
         Datatype* attributes;

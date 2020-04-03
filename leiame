@@ -35,11 +35,15 @@ S - Numero de stages
 L - Quantidade de vetores
 D - Quantidade de dimensoes
 
+Script pronto: ./testN
+
 ./bin/test-cuda B S L D - Teste com dados aleatorios de tamanho variavel no CUDA
 B - Numero de buckets
 S - Numero de stages
 L - Quantidade de vetores
 D - Quantidade de dimensoes
+
+Script pronto: ./cuda-testN
 
 Os resultados são impressos no formato #numbuckets #numstages #numvetores #dimensoes #tempogastoemsgundos
 
